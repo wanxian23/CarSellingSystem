@@ -30,7 +30,7 @@ public class CarSellingSystem implements ItemListener {
 
 
     JPanel filterTypePanel = new JPanel();
-    String[] modelType = {"Aurora", "TerraVolt", "Stratos", "Imperial", "PwerHaul"};
+    String[] modelType = {"Aurora", "TerraVolt", "Stratos", "Imperial", "PowerHaul"};
     String[] colorType = {"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
     String[] priceType = {"RM10000 - RM200000", "RM500000 - RM10000000"};
     JComboBox<String>[] filterType = new JComboBox[3];
