@@ -241,7 +241,7 @@ public class LogInPage {
                     mainpage.showMainPage();
 
                 } else if (!username) {
-                    JOptionPane.showMessageDialog(null, "Username " + usernameField.getText() + " not found", "USERNAME NOT FOUND",
+                    JOptionPane.showMessageDialog(null, "Username" + usernameField.getText() + " not found", "USERNAME NOT FOUND",
                             JOptionPane.WARNING_MESSAGE);
                 } else if (username && !pass) {
                     JOptionPane.showMessageDialog(null, "WRONG PASSWORD! PLEASE TRY AGAIN", "PASSWORD WRONG",
