@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class LogInPage {
 
@@ -82,8 +85,12 @@ public class LogInPage {
         }
     };
 
+    JTextField usernameField = new JTextField(20);
+    JPasswordField passwField = new JPasswordField(20);
+
     // create log in page
     public void createLogInPage(){
+
 
         // panel for log in page
         JPanel LogInPanel = new JPanel();
@@ -94,7 +101,7 @@ public class LogInPage {
         JPanel topPanel = new JPanel(new BorderLayout());
         JLabel companyName = new JLabel("Eco Motion");
         companyName.setFont(new Font("Century Gothic", Font.BOLD, 45));
-        companyName.setHorizontalAlignment(SwingConstants.LEFT);
+        companyName.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(companyName, BorderLayout.NORTH);
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 40));
 
@@ -123,7 +130,6 @@ public class LogInPage {
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(usernameLabel, gbc);
 
-        JTextField usernameField = new JTextField(20);
         usernameField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         usernameField.setPreferredSize(new Dimension(200, 30));
         gbc.gridx = 1;
@@ -136,7 +142,6 @@ public class LogInPage {
         gbc.gridy = 2;
         centerPanel.add(passwLabel, gbc);
 
-        JPasswordField passwField = new JPasswordField(20);
         passwField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         passwField.setPreferredSize(new Dimension(200, 30));
         gbc.gridx = 1;
@@ -173,6 +178,7 @@ public class LogInPage {
         loginButton.setForeground(Color.WHITE);
         loginButton.setBackground(Color.BLACK);
         loginButton.setPreferredSize(new Dimension(100, 35));
+        loginButton.addActionListener(loginEvent);
         buttonPanel.add(loginButton);
 
         // adding button panel to center panel
@@ -185,14 +191,73 @@ public class LogInPage {
         // adding panels to the frame
         frameLoginPage.add(topPanel, BorderLayout.NORTH);
         frameLoginPage.add(centerPanel, BorderLayout.CENTER);
-
+        frameLoginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLoginPage.pack();
         frameLoginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frameLoginPage.setVisible(true);
     }
 
+    ActionListener loginEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
 
-    public static void main (String args[]){
+            boolean username = false, pass = false;
+
+            try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
+
+                int x = 0;
+                String[] line = new String[1000];
+
+                while ((line[x] = reader.readLine()) != null) {
+                    x++;
+                }
+
+                x = x / 6;
+
+                for (int y = 0 ; x >= 0; x--, y+=6) {
+                    username = pass = false;
+                    if (line[y].equals(usernameField.getText())) {
+                        username = true;
+                    }
+
+                    if (line[y + 3].equals(passwField.getText())) {
+                        pass = true;
+                    }
+
+                    if (username) {
+                        break;
+                    }
+                }
+
+                System.out.println(username);
+                System.out.println(pass);
+
+                if (username && pass) {
+
+                    JOptionPane.showMessageDialog(null, "LOGIN SUCCESSFULLY!", "LOGIN SUCCESS",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    frameLoginPage.setVisible(false);
+
+                    MainPage mainpage = new MainPage();
+                    mainpage.showMainPage();
+
+                } else if (!username) {
+                    JOptionPane.showMessageDialog(null, "Username " + usernameField.getText() + " not found", "USERNAME NOT FOUND",
+                            JOptionPane.WARNING_MESSAGE);
+                } else if (username && !pass) {
+                    JOptionPane.showMessageDialog(null, "WRONG PASSWORD! PLEASE TRY AGAIN", "PASSWORD WRONG",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (IOException fileException) {
+                JOptionPane.showMessageDialog(null, "File not found", "File not found", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+    };
+
+
+    public static void main (String[] args){
         LogInPage wp = new LogInPage();
         wp.createWelcomePage();
     }
