@@ -94,6 +94,7 @@ public class MainPage {
         Font filterTypeFont = new Font("Arial", Font.BOLD, 15);
         for (int x = 0; x < 3; x++) {
             filterTypeNamePanel[x] = new JPanel();
+            filterTypeNamePanel[x].setLayout(new FlowLayout(1, 50, 10));
         }
 
         ImageIcon filterPictureModel = new ImageIcon(getClass().getResource(carPictureLink));
@@ -122,7 +123,6 @@ public class MainPage {
         TitledBorder priceTitleBorder = BorderFactory.createTitledBorder(blackLine, "PRICE");
         priceTitleBorder.setTitleFont(filterTypeFont);
         filterTypeNamePanel[2].setBorder(priceTitleBorder);
-        filterTypeNamePanel[2].setLayout(new BorderLayout());
         priceSlider.setPaintTrack(true);
         priceSlider.setPaintTicks(true);
         priceSlider.setPaintLabels(true);
@@ -140,13 +140,12 @@ public class MainPage {
         filterTypeNamePanel[2].add(priceSlider, BorderLayout.SOUTH);
 
         JPanel filterTypePanel = new JPanel();
-        filterTypePanel.setLayout(new GridLayout(1,3,50, 0));
+        filterTypePanel.setLayout(new GridLayout(1,3,100, 0));
         filterTypeNamePanel[0].add(imgFilterType[0]);
         filterTypeNamePanel[1].add(imgFilterType[1]);
         for (int x = 0; x < filterType.length; x++) {
             filterType[x].setSelectedIndex(0);
             filterType[x].setPreferredSize(new Dimension(200, 25));
-            filterTypeNamePanel[x].setLayout(new FlowLayout());
             filterTypeNamePanel[x].setPreferredSize(new Dimension(0, 160));
             filterTypeNamePanel[x].add(filterType[x]);
             filterTypePanel.add(filterTypeNamePanel[x]);
