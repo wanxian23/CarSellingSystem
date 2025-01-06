@@ -258,11 +258,11 @@ public class SignUp {
 
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/UserInfoFile.txt", true))) {
 
-                        writer.write("\n" + nameField.getText());
+                        writer.write(nameField.getText());
                         writer.write("\n" + emailField.getText());
                         writer.write("\n" + phoneField.getText());
                         writer.write("\n" + new String(passwordField.getPassword()));
-                        writer.write("\n" + new String(rePasswordField.getPassword()));
+                        writer.write("\n" + new String(rePasswordField.getPassword()) + "\n");
 
                         JOptionPane.showMessageDialog(null, "Account Successfully Created! Please login again to your account!",
                                 "ACCOUNT SUCCESSFULLY CREATED", JOptionPane.INFORMATION_MESSAGE);
