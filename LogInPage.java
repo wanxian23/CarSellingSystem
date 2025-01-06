@@ -8,88 +8,9 @@ import java.io.IOException;
 
 public class LogInPage {
 
-    private JFrame frameWelcomePage = new JFrame("EcoMotion Welcome Page");
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     private JFrame frameLoginPage = new JFrame("EcoMotion Log In Page");
-
-    // create welcome page
-    public void createWelcomePage()
-    {
-
-        frameWelcomePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //panel for welcome page
-        JPanel WelcomePanel = new JPanel();
-        WelcomePanel.setLayout(new BoxLayout(WelcomePanel, BoxLayout.Y_AXIS));
-
-        // welcome label
-        JLabel WelcomeText = new JLabel("Welcome to Eco Motion");
-        WelcomeText.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        WelcomeText.setFont(new Font("Century Gothic", Font.BOLD, 70));
-
-        // log in button
-        JButton LogInButton = new JButton("LOG IN");
-        LogInButton.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        LogInButton.setFont(new Font("Century Gothic", Font.BOLD, 20));
-        LogInButton.setBackground(Color.BLACK);
-        LogInButton.setForeground(Color.WHITE);
-        LogInButton.setMaximumSize(new Dimension(130, 50));  // Enforce max size
-        LogInButton.setMinimumSize(new Dimension(0, 0));
-
-        //sign up button
-        JButton SignUpButton = new JButton("SIGN UP");
-        SignUpButton.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        SignUpButton.setFont(new Font("Century Gothic", Font.BOLD, 20));
-        SignUpButton.setBackground(Color.BLACK);
-        SignUpButton.setForeground(Color.WHITE);
-        SignUpButton.setMaximumSize(new Dimension(130, 50));  // Enforce max size
-        SignUpButton.setMinimumSize(new Dimension(0, 0));
-
-        // exit button
-        JButton ExitButton = new JButton("EXIT");
-        ExitButton.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        ExitButton.setFont(new Font("Century Gothic", Font.BOLD, 15));
-        ExitButton.setBackground(Color.GRAY);
-        ExitButton.setForeground(Color.WHITE);
-
-        // action listeneres for buttons
-        LogInButton.addActionListener(buttonLoginEvent);
-        SignUpButton.addActionListener(buttonSignupEvent);
-        ExitButton.addActionListener(e -> System.exit(0));
-
-        // adding components to welcome panel
-        WelcomePanel.add(WelcomeText);
-        WelcomePanel.add(Box.createVerticalStrut(30));
-        WelcomePanel.add(LogInButton);
-        WelcomePanel.add(Box.createVerticalStrut(15));
-        WelcomePanel.add(SignUpButton);
-        WelcomePanel.add(Box.createVerticalStrut(20));
-        WelcomePanel.add(ExitButton);
-
-        WelcomePanel.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
-
-        frameWelcomePage.pack();
-        frameWelcomePage.setLayout(new FlowLayout());
-        frameWelcomePage.add(WelcomePanel);
-        frameWelcomePage.setVisible(true);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frameWelcomePage.setSize(screenSize.width, screenSize.height);
-
-    }
-
-    ActionListener buttonLoginEvent = new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            frameWelcomePage.setVisible(false);
-            createLogInPage();
-        }
-    };
-
-    ActionListener buttonSignupEvent = new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            frameWelcomePage.setVisible(false);
-            SignUp signup = new SignUp();
-            signup.showSignup();
-        }
-    };
 
     JTextField usernameField = new JTextField(20);
     JPasswordField passwField = new JPasswordField(20);
@@ -174,10 +95,7 @@ public class LogInPage {
         buttonPanel.add(backButton);
 
         // action listener for back button
-        backButton.addActionListener(e -> {
-            frameLoginPage.setVisible(false);
-            frameWelcomePage.setVisible(true);
-        });
+        backButton.addActionListener(backButtonEvent);
 
         JButton loginButton = new JButton("Log In");
         loginButton.setFont(new Font("Century Gothic", Font.BOLD, 16));
@@ -194,14 +112,38 @@ public class LogInPage {
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(buttonPanel, gbc);
 
+        JPanel combineLoginComponents = new JPanel();
+        combineLoginComponents.setLayout(new BorderLayout());
+        combineLoginComponents.add(topPanel, BorderLayout.NORTH);
+        combineLoginComponents.add(centerPanel, BorderLayout.CENTER);
+
+        // Right panel for the image
+        JPanel imagePanel = new JPanel();
+        ImageIcon signupCarImage = new ImageIcon("src/Images/LoginCarImage.png");
+        Image adjustionSignupCarImage = signupCarImage.getImage().getScaledInstance(screenSize.width / 2, screenSize.height, Image.SCALE_SMOOTH);
+        signupCarImage.setImage(adjustionSignupCarImage);
+        JLabel imageLabel = new JLabel();// Replace with your image path
+        imageLabel.setIcon(signupCarImage);
+        imagePanel.add(imageLabel);
+
         // adding panels to the frame
-        frameLoginPage.add(topPanel, BorderLayout.NORTH);
-        frameLoginPage.add(centerPanel, BorderLayout.CENTER);
+        frameLoginPage.setLayout(new GridLayout(1, 2));
+        frameLoginPage.add(combineLoginComponents);
+        frameLoginPage.add(imagePanel);
         frameLoginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLoginPage.pack();
         frameLoginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frameLoginPage.setVisible(true);
     }
+
+    ActionListener backButtonEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            frameLoginPage.setVisible(false);
+
+            WelcomePage welcomepage = new WelcomePage();
+            welcomepage.createWelcomePage();
+        }
+    };
 
     ActionListener loginEvent = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -265,6 +207,6 @@ public class LogInPage {
 
     public static void main (String[] args){
         LogInPage wp = new LogInPage();
-        wp.createWelcomePage();
+        wp.createLogInPage();
     }
 }
