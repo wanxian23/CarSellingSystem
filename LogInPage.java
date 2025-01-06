@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -94,6 +93,15 @@ public class LogInPage {
         backButton.setPreferredSize(new Dimension(100, 35));
         buttonPanel.add(backButton);
 
+        // Signup Link
+        JLabel signupLabel = new JLabel("Do not have an account? SIGN UP");
+        signupLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        signupLabel.setForeground(Color.BLUE);
+        signupLabel.addMouseListener(signupClick);
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        centerPanel.add(signupLabel, gbc);
+
         // action listener for back button
         backButton.addActionListener(backButtonEvent);
 
@@ -107,7 +115,7 @@ public class LogInPage {
 
         // adding button panel to center panel
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(buttonPanel, gbc);
@@ -136,6 +144,14 @@ public class LogInPage {
         frameLoginPage.setVisible(true);
     }
 
+    MouseListener signupClick = new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            frameLoginPage.setVisible(false);
+            SignUp signup = new SignUp();
+            signup.showSignup();
+        }
+    };
+
     ActionListener backButtonEvent = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             frameLoginPage.setVisible(false);
@@ -161,13 +177,13 @@ public class LogInPage {
 
                 x = x / 6;
 
-                for (int i = 0 ; x >= 0; x--, i+=6) {
+                for (int i = 0 ; x > 0; x--, i+=6) {
                     username = pass = false;
-                    if (line[i].equals(usernameField.getText())) {
+                    if (line[i + 1].equals(usernameField.getText())) {
                         username = true;
                     }
 
-                    if (line[i + 3].equals(passwField.getText())) {
+                    if (line[i + 4].equals(passwField.getText())) {
                         pass = true;
                     }
 
@@ -198,7 +214,7 @@ public class LogInPage {
                 }
 
             } catch (IOException fileException) {
-                JOptionPane.showMessageDialog(null, "File not found", "File not found", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login Failed! Please try to create an account!", "File not found", JOptionPane.WARNING_MESSAGE);
             }
 
         }
