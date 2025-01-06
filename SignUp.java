@@ -1,16 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class SignUp {
-    public static void main(String[] args) {
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    JFrame frameSignup = new JFrame("Signup Form");
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Create the main frame
-        JFrame frame = new JFrame("Signup Form");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(screenSize.width, screenSize.height);
-        frame.setLayout(new GridLayout(1, 2));
+    JTextField nameField = new JTextField(30);
+    JTextField emailField = new JTextField(30);
+    JTextField phoneField = new JTextField(30);
+    JPasswordField passwordField = new JPasswordField(30);
+    JPasswordField rePasswordField = new JPasswordField(30);
+
+    public void showSignup() {
 
         // Left panel for the form
         JPanel formPanel = new JPanel();
@@ -42,7 +52,6 @@ public class SignUp {
         gbc.gridwidth = 1;
         formPanel.add(nameLabel, gbc);
 
-        JTextField nameField = new JTextField(30);
         gbc.gridx = 1;
         formPanel.add(nameField, gbc);
 
@@ -53,7 +62,6 @@ public class SignUp {
         gbc.gridy = 3;
         formPanel.add(emailLabel, gbc);
 
-        JTextField emailField = new JTextField(30);
         gbc.gridx = 1;
         formPanel.add(emailField, gbc);
 
@@ -64,7 +72,6 @@ public class SignUp {
         gbc.gridy = 4;
         formPanel.add(phoneLabel, gbc);
 
-        JTextField phoneField = new JTextField(30);
         gbc.gridx = 1;
         formPanel.add(phoneField, gbc);
 
@@ -75,7 +82,6 @@ public class SignUp {
         gbc.gridy = 5;
         formPanel.add(passwordLabel, gbc);
 
-        JPasswordField passwordField = new JPasswordField(30);
         gbc.gridx = 1;
         formPanel.add(passwordField, gbc);
 
@@ -86,7 +92,6 @@ public class SignUp {
         gbc.gridy = 6;
         formPanel.add(rePasswordLabel, gbc);
 
-        JPasswordField rePasswordField = new JPasswordField(30);
         gbc.gridx = 1;
         formPanel.add(rePasswordField, gbc);
 
@@ -103,6 +108,7 @@ public class SignUp {
         JButton signupButton = new JButton("SIGN UP");
         signupButton.setBackground(Color.BLACK);
         signupButton.setForeground(Color.WHITE);
+        signupButton.addActionListener(buttonSignupEvent);
         gbc.gridy = 8;
         gbc.gridwidth = 1;
         gbc.gridx = 1;
@@ -115,6 +121,7 @@ public class SignUp {
         gbc.gridy = 8;
         gbc.gridx = 0;
         formPanel.add(backButton, gbc);
+        backButton.addActionListener(buttonBackEvent);
 
         // Login Link
         JLabel loginLabel = new JLabel("Already have an account? LOG IN");
@@ -133,11 +140,84 @@ public class SignUp {
         imageLabel.setIcon(signupCarImage);
         imagePanel.add(imageLabel);
 
+        // Create the main frame
+        frameSignup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameSignup.setSize(screenSize.width, screenSize.height);
+        frameSignup.setLayout(new GridLayout(1, 2));
+
         // Add panels to the frame
-        frame.add(formPanel);
-        frame.add(imagePanel);
+        frameSignup.add(formPanel);
+        frameSignup.add(imagePanel);
 
         // Set frame visibility
-        frame.setVisible(true);
+        frameSignup.setVisible(true);
+
     }
+
+    ActionListener buttonBackEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+
+            frameSignup.setVisible(false);
+
+            LogInPage login = new LogInPage();
+            login.createWelcomePage();
+
+        }
+    };
+
+    ActionListener buttonSignupEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+
+            boolean name, email, phone, pass, rePass;
+            name = email = phone = pass = rePass = false;
+
+            if (!nameField.getText().isEmpty()) name = true;
+            if (!emailField.getText().isEmpty()) email = true;
+            if (!phoneField.getText().isEmpty()) phone = true;
+            if (passwordField.getPassword().length > 0) pass = true;
+            if (rePasswordField.getPassword().length > 0) rePass = true;
+
+            if (name && email && phone && pass && rePass) {
+                try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
+                    int x = 0;
+                    String[] line = new String[1000];
+
+                    while ((line[x] = reader.readLine()) != null) {
+                        x++;
+                    }
+
+                    x = x / 6;
+
+                    for (int i = 0 ; x >= 0; x--, i+=6) {
+                        name = email = phone = true;
+
+                        if (line[i].equals(nameField.getText())) {
+                            JOptionPane.showMessageDialog(null, "Username " + nameField.getText() + " already exist",
+                                    "ERROR! USERNAME EXIST", JOptionPane.WARNING_MESSAGE);
+                        }
+
+                        if (line[i].equals(emailField.getText())) {
+                            email = true;
+                        }
+
+                        if (line[i].equals(phoneField.getText())) {
+                            phone = true;
+                        }
+                    }
+                }
+                catch (IOException fileException) {
+                    JOptionPane.showMessageDialog(null, "File not found", "File not found", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "You must fill in all the text field!!", "ERROR", JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+    };
+
+    public static void main(String[] args) {
+        SignUp signup = new SignUp();
+        signup.showSignup();
+    }
+
 }
