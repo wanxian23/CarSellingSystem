@@ -34,7 +34,6 @@ public class LogInPage {
         LogInButton.setForeground(Color.WHITE);
         LogInButton.setMaximumSize(new Dimension(130, 50));  // Enforce max size
         LogInButton.setMinimumSize(new Dimension(0, 0));
-        LogInButton.addActionListener(buttonLoginEvent);
 
         //sign up button
         JButton SignUpButton = new JButton("SIGN UP");
@@ -53,8 +52,8 @@ public class LogInPage {
         ExitButton.setForeground(Color.WHITE);
 
         // action listeneres for buttons
-        LogInButton.addActionListener(e -> System.out.println("Log In Clicked"));
-        SignUpButton.addActionListener(e -> System.out.println("Sign Up Clicked"));
+        LogInButton.addActionListener(buttonLoginEvent);
+        SignUpButton.addActionListener(buttonSignupEvent);
         ExitButton.addActionListener(e -> System.exit(0));
 
         // adding components to welcome panel
@@ -81,6 +80,14 @@ public class LogInPage {
         public void actionPerformed(ActionEvent e) {
             frameWelcomePage.setVisible(false);
             createLogInPage();
+        }
+    };
+
+    ActionListener buttonSignupEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            frameWelcomePage.setVisible(false);
+            SignUp signup = new SignUp();
+            signup.showSignup();
         }
     };
 
@@ -212,13 +219,13 @@ public class LogInPage {
 
                 x = x / 6;
 
-                for (int y = 0 ; x >= 0; x--, y+=6) {
+                for (int i = 0 ; x >= 0; x--, i+=6) {
                     username = pass = false;
-                    if (line[y].equals(usernameField.getText())) {
+                    if (line[i].equals(usernameField.getText())) {
                         username = true;
                     }
 
-                    if (line[y + 3].equals(passwField.getText())) {
+                    if (line[i + 3].equals(passwField.getText())) {
                         pass = true;
                     }
 
