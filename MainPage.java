@@ -140,14 +140,14 @@ public class MainPage {
         filterTypeNamePanel[2].add(priceSlider, BorderLayout.SOUTH);
 
         JPanel filterTypePanel = new JPanel();
-        filterTypePanel.setLayout(new GridLayout(1,3,100, 0));
+        filterTypePanel.setLayout(new GridLayout(1,3,50, 0));
         filterTypeNamePanel[0].add(imgFilterType[0]);
         filterTypeNamePanel[1].add(imgFilterType[1]);
         for (int x = 0; x < filterType.length; x++) {
             filterType[x].setSelectedIndex(0);
-            filterType[x].setPreferredSize(new Dimension(300, 25));
+            filterType[x].setPreferredSize(new Dimension(200, 25));
             filterTypeNamePanel[x].setLayout(new FlowLayout());
-            filterTypeNamePanel[x].setPreferredSize(new Dimension(0, 150));
+            filterTypeNamePanel[x].setPreferredSize(new Dimension(0, 160));
             filterTypeNamePanel[x].add(filterType[x]);
             filterTypePanel.add(filterTypeNamePanel[x]);
         }
