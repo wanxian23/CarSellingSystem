@@ -234,19 +234,19 @@ public class SignUp {
 
                     for (int i = 0 ; x > 0; x--, i+=6) {
 
-                        if (line[i].equals(nameField.getText())) {
+                        if (line[i + 1].equals(nameField.getText())) {
                             JOptionPane.showMessageDialog(null, "Username " + nameField.getText() + " already exist",
                                     "ERROR! USERNAME EXIST", JOptionPane.WARNING_MESSAGE);
                             name = false;
                         }
 
-                        if (line[i + 1].equals(emailField.getText())) {
+                        if (line[i + 2].equals(emailField.getText())) {
                             JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " already exist",
                                     "ERROR! EMAIL EXIST", JOptionPane.WARNING_MESSAGE);
                             email = false;
                         }
 
-                        if (line[i + 2].equals(phoneField.getText())) {
+                        if (line[i + 3].equals(phoneField.getText())) {
                             JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " already exist",
                                     "ERROR! PHONE NUMBER EXIST", JOptionPane.WARNING_MESSAGE);
                             phone = false;
@@ -258,7 +258,7 @@ public class SignUp {
 
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/UserInfoFile.txt", true))) {
 
-                        writer.write(nameField.getText());
+                        writer.write("\n" + nameField.getText());
                         writer.write("\n" + emailField.getText());
                         writer.write("\n" + phoneField.getText());
                         writer.write("\n" + new String(passwordField.getPassword()));
