@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
@@ -213,7 +214,15 @@ public class SignUp {
                     return;
                 }
 
-                try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
+                try {
+
+                    File userInfoFile = new File("src/UserInfoFile.txt");
+                    if (!userInfoFile.exists()) {
+                        userInfoFile.createNewFile();  // Create the file if it doesn't exist
+                    }
+
+                    BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"));
+
                     int x = 0;
                     String[] line = new String[1000];
 
@@ -223,7 +232,7 @@ public class SignUp {
 
                     x = x / 6;
 
-                    for (int i = 0 ; x >= 0; x--, i+=6) {
+                    for (int i = 0 ; x > 0; x--, i+=6) {
 
                         if (line[i].equals(nameField.getText())) {
                             JOptionPane.showMessageDialog(null, "Username " + nameField.getText() + " already exist",
@@ -249,7 +258,6 @@ public class SignUp {
 
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/UserInfoFile.txt", true))) {
 
-                        writer.write("\n");
                         writer.write("\n" + nameField.getText());
                         writer.write("\n" + emailField.getText());
                         writer.write("\n" + phoneField.getText());
@@ -270,8 +278,7 @@ public class SignUp {
                         return;
                     }
 
-                }
-                catch (IOException inputFileException) {
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "File not found", "File not found", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
