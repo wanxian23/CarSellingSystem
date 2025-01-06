@@ -8,8 +8,8 @@ import java.io.IOException;
 
 public class LogInPage {
 
-    JFrame frameWelcomePage = new JFrame("EcoMotion Welcome Page");
-    JFrame frameLoginPage = new JFrame("EcoMotion Log In Page");
+    private JFrame frameWelcomePage = new JFrame("EcoMotion Welcome Page");
+    private JFrame frameLoginPage = new JFrame("EcoMotion Log In Page");
 
     // create welcome page
     public void createWelcomePage()
