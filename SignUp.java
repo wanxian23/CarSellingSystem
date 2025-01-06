@@ -7,18 +7,20 @@ import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class SignUp {
 
-    JFrame frameSignup = new JFrame("Signup Form");
+    private JFrame frameSignup = new JFrame("Signup Form");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    JTextField nameField = new JTextField(30);
-    JTextField emailField = new JTextField(30);
-    JTextField phoneField = new JTextField(30);
-    JPasswordField passwordField = new JPasswordField(30);
-    JPasswordField rePasswordField = new JPasswordField(30);
+    private JTextField nameField = new JTextField(30);
+    private JTextField emailField = new JTextField(30);
+    private JTextField phoneField = new JTextField(30);
+    private JPasswordField passwordField = new JPasswordField(30);
+    private JPasswordField rePasswordField = new JPasswordField(30);
+    private JCheckBox termsCheckBox = new JCheckBox("I agree to the [Terms of Service] and [Privacy Policy].");
 
     public void showSignup() {
 
@@ -96,7 +98,6 @@ public class SignUp {
         formPanel.add(rePasswordField, gbc);
 
         // Terms and Conditions
-        JCheckBox termsCheckBox = new JCheckBox("I agree to the [Terms of Service] and [Privacy Policy].");
         termsCheckBox.setBackground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -173,11 +174,32 @@ public class SignUp {
 
             if (!nameField.getText().isEmpty()) name = true;
             if (!emailField.getText().isEmpty()) email = true;
-            if (!phoneField.getText().isEmpty()) phone = true;
-            if (passwordField.getPassword().length > 0) pass = true;
-            if (rePasswordField.getPassword().length > 0) rePass = true;
+            if (!phoneField.getText().isEmpty()) {
+                if (phoneField.getText().length() != 10 &&  phoneField.getText().length() != 11) {
+                    JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " was not between the length of 10 or 11",
+                            "ERROR! PHONE NUMBER OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                phone = true;
+            }
+            if (passwordField.getPassword().length > 0 && rePasswordField.getPassword().length > 0) {
+                if (!Arrays.equals(passwordField.getPassword(), rePasswordField.getPassword())) {
+                    JOptionPane.showMessageDialog(null, "Password and Re-enter Password were not the same!!",
+                            "ERROR! PASSWORD NOT CONSISTENT", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                pass = true;
+                rePass = true;
+            }
 
             if (name && email && phone && pass && rePass) {
+
+                if (!termsCheckBox.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Must tick the Terms & Policy!!",
+                            "ERROR! TERMS & POLICY NOT YET TICK", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
                     int x = 0;
                     String[] line = new String[1000];
@@ -189,27 +211,61 @@ public class SignUp {
                     x = x / 6;
 
                     for (int i = 0 ; x >= 0; x--, i+=6) {
-                        name = email = phone = true;
 
                         if (line[i].equals(nameField.getText())) {
                             JOptionPane.showMessageDialog(null, "Username " + nameField.getText() + " already exist",
                                     "ERROR! USERNAME EXIST", JOptionPane.WARNING_MESSAGE);
+                            name = false;
                         }
 
-                        if (line[i].equals(emailField.getText())) {
-                            email = true;
+                        if (line[i + 1].equals(emailField.getText())) {
+                            JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " already exist",
+                                    "ERROR! EMAIL EXIST", JOptionPane.WARNING_MESSAGE);
+                            email = false;
                         }
 
-                        if (line[i].equals(phoneField.getText())) {
-                            phone = true;
+                        if (line[i + 2].equals(phoneField.getText())) {
+                            JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " already exist",
+                                    "ERROR! PHONE NUMBER EXIST", JOptionPane.WARNING_MESSAGE);
+                            phone = false;
                         }
+
+                        if (!name || !email || !phone) return;
+
                     }
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/UserInfoFile.txt", true))) {
+
+                        writer.write("\n");
+                        writer.write("\n" + nameField.getText());
+                        writer.write("\n" + emailField.getText());
+                        writer.write("\n" + phoneField.getText());
+                        writer.write("\n" + new String(passwordField.getPassword()));
+                        writer.write("\n" + new String(rePasswordField.getPassword()));
+
+                        JOptionPane.showMessageDialog(null, "Account Successfully Created! Please login again to your account!",
+                                "ACCOUNT SUCCESSFULLY CREATED", JOptionPane.INFORMATION_MESSAGE);
+
+                        frameSignup.setVisible(false);
+
+                        LogInPage login = new LogInPage();
+                        login.createLogInPage();
+
+                    } catch (IOException outputFileException) {
+                        JOptionPane.showMessageDialog(null, "Failed to write into UserInfoFile!",
+                                "ERROR! OUTPUT FILE WRITE FAILED", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
                 }
-                catch (IOException fileException) {
+                catch (IOException inputFileException) {
                     JOptionPane.showMessageDialog(null, "File not found", "File not found", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
+
             } else {
                 JOptionPane.showMessageDialog(null, "You must fill in all the text field!!", "ERROR", JOptionPane.WARNING_MESSAGE);
+                return;
             }
 
         }
