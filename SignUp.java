@@ -33,6 +33,14 @@ public class SignUp {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        // top left Eco Motion label
+        JPanel topPanel = new JPanel(new BorderLayout());
+        JLabel companyName = new JLabel("Eco Motion");
+        companyName.setFont(new Font("Century Gothic", Font.BOLD, 45));
+        companyName.setHorizontalAlignment(SwingConstants.CENTER);
+        topPanel.add(companyName, BorderLayout.NORTH);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 40));
+
         // Title
         JLabel titleLabel = new JLabel("Create your account");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -134,12 +142,17 @@ public class SignUp {
 
         // Right panel for the image
         JPanel imagePanel = new JPanel();
-        ImageIcon signupCarImage = new ImageIcon(SignUp.class.getResource("Images/SignUpCar.png"));
+        ImageIcon signupCarImage = new ImageIcon("src/Images/SignUpCar.png");
         Image adjustionSignupCarImage = signupCarImage.getImage().getScaledInstance(screenSize.width / 2, screenSize.height, Image.SCALE_SMOOTH);
         signupCarImage.setImage(adjustionSignupCarImage);
         JLabel imageLabel = new JLabel();// Replace with your image path
         imageLabel.setIcon(signupCarImage);
         imagePanel.add(imageLabel);
+
+        JPanel combineSignupPanels = new JPanel();
+        combineSignupPanels.setLayout(new BorderLayout());
+        combineSignupPanels.add(topPanel, BorderLayout.NORTH);
+        combineSignupPanels.add(formPanel, BorderLayout.CENTER);
 
         // Create the main frame
         frameSignup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,7 +173,7 @@ public class SignUp {
 
             frameSignup.setVisible(false);
 
-            LogInPage login = new LogInPage();
+            WelcomePage login = new WelcomePage();
             login.createWelcomePage();
 
         }
