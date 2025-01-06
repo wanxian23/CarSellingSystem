@@ -10,8 +10,8 @@ import javax.swing.event.ChangeListener;
 public class MainPage {
 
     // Preview Car with Image Part
-    private String carPictureLink = "Images/Preview_n_Model/Car1.png";
-    private ImageIcon carPictures = new ImageIcon(getClass().getResource(carPictureLink));
+    private String carPictureLink = "src/Images/Preview_n_Model/Car1.png";
+    private ImageIcon carPictures = new ImageIcon(carPictureLink);
     private JLabel labelContainPicture = new JLabel();
 
 
@@ -30,7 +30,7 @@ public class MainPage {
     private JSlider priceSlider = new JSlider(0, 1000000, (1000000) / 2);
     private JLabel RMLabel = new JLabel("RM " + (1000000) / 2);
 
-    private String colorCarPicLink = "Images/Color/Aurora/PearlWhiteMulti-Coat.png";
+    private String colorCarPicLink = "src/Images/Color/Aurora/PearlWhiteMulti-Coat.png";
     private JLabel[] imgFilterType = new JLabel[2];
 
 
@@ -97,9 +97,9 @@ public class MainPage {
             filterTypeNamePanel[x].setLayout(new FlowLayout(1, 50, 10));
         }
 
-        ImageIcon filterPictureModel = new ImageIcon(getClass().getResource(carPictureLink));
+        ImageIcon filterPictureModel = new ImageIcon(carPictureLink);
         Image adjustionFilterPicModel = carPictures.getImage().getScaledInstance(180, 100, Image.SCALE_SMOOTH);
-        ImageIcon filterPictureColor = new ImageIcon(getClass().getResource(colorCarPicLink));
+        ImageIcon filterPictureColor = new ImageIcon(colorCarPicLink);
         Image adjustionFilterPicColor = filterPictureColor.getImage().getScaledInstance(180, 100, Image.SCALE_SMOOTH);
         filterPictureModel.setImage(adjustionFilterPicModel);
         filterPictureColor.setImage(adjustionFilterPicColor);
@@ -210,23 +210,23 @@ public class MainPage {
 
             switch (randomNum) {
                 case 1:
-                    carPictureLink = "Images/Preview_n_Model/Car1.png";
+                    carPictureLink = "src/Images/Preview_n_Model/Car1.png";
                     break;
                 case 2:
-                    carPictureLink = "Images/Preview_n_Model/Car2.png";
+                    carPictureLink = "src/Images/Preview_n_Model/Car2.png";
                     break;
                 case 3:
-                    carPictureLink = "Images/Preview_n_Model/Car3.png";
+                    carPictureLink = "src/Images/Preview_n_Model/Car3.png";
                     break;
                 case 4:
-                    carPictureLink = "Images/Preview_n_Model/Car4.png";
+                    carPictureLink = "src/Images/Preview_n_Model/Car4.png";
                     break;
                 case 5:
-                    carPictureLink = "Images/Preview_n_Model/Car5.png";
+                    carPictureLink = "src/Images/Preview_n_Model/Car5.png";
                     break;
             }
 
-            ImageIcon updatePicture = new ImageIcon(getClass().getResource(carPictureLink));
+            ImageIcon updatePicture = new ImageIcon(carPictureLink);
             Image adjustionApdatedPic = updatePicture.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
             updatePicture.setImage(adjustionApdatedPic);
 
@@ -246,32 +246,32 @@ public class MainPage {
                 switch (selectedModelIndex) {
                     case 0:
                         index = 0;
-                        carPictureLink = "Images/Preview_n_Model/Car1.png";
-                        colorCarPicLink = "Images/Color/Aurora/PearlWhiteMulti-Coat.png";
+                        carPictureLink = "src/Images/Preview_n_Model/Car1.png";
+                        colorCarPicLink = "src/Images/Color/Aurora/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
                         break;
                     case 1:
                         index = 1;
-                        carPictureLink = "Images/Preview_n_Model/Car2.png";
-                        colorCarPicLink = "Images/Color/Imperial/PearlWhiteMulti-Coat.png";
+                        carPictureLink = "src/Images/Preview_n_Model/Car2.png";
+                        colorCarPicLink = "src/Images/Color/Imperial/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Solid Black", "Ultra Red"};
                         break;
                     case 2:
                         index = 2;
-                        carPictureLink = "Images/Preview_n_Model/Car3.png";
-                        colorCarPicLink = "Images/Color/PowerHaul/PearlWhiteMulti-Coat.png";
+                        carPictureLink = "src/Images/Preview_n_Model/Car3.png";
+                        colorCarPicLink = "src/Images/Color/PowerHaul/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Quicksilver"};
                         break;
                     case 3:
                         index = 3;
-                        carPictureLink = "Images/Preview_n_Model/Car4.png";
-                        colorCarPicLink = "Images/Color/Stratos/PearlWhiteMulti-Coat.png";
+                        carPictureLink = "src/Images/Preview_n_Model/Car4.png";
+                        colorCarPicLink = "src/Images/Color/Stratos/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
                         break;
                     case 4:
                         index = 4;
-                        carPictureLink = "Images/Preview_n_Model/Car5.png";
-                        colorCarPicLink = "Images/Color/TerraVolt/QuickSilver.png";
+                        carPictureLink = "src/Images/Preview_n_Model/Car5.png";
+                        colorCarPicLink = "src/Images/Color/TerraVolt/QuickSilver.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Solid Black", "Ultra Red"};
                         break;
                 }
@@ -280,8 +280,8 @@ public class MainPage {
                     filterType[1].addItem(colorType[i]);
                 }
 
-                ImageIcon selectedCarPicture = new ImageIcon(getClass().getResource(carPictureLink));
-                ImageIcon selectedCarColorPicture = new ImageIcon(getClass().getResource(colorCarPicLink));
+                ImageIcon selectedCarPicture = new ImageIcon(carPictureLink);
+                ImageIcon selectedCarColorPicture = new ImageIcon(colorCarPicLink);
                 Image adjustionUpdatedPic = selectedCarPicture.getImage().getScaledInstance(180, 100, Image.SCALE_SMOOTH);
                 Image adjustionColorUpdatedPic = selectedCarColorPicture.getImage().getScaledInstance(180, 100, Image.SCALE_SMOOTH);
                 selectedCarPicture.setImage(adjustionUpdatedPic);
@@ -303,80 +303,80 @@ public class MainPage {
                 if (index == 0) {
                     switch (selectedColorIndex) {
                         case 0:
-                            colorCarPicLink = "Images/Color/Aurora/PearlWhiteMulti-Coat.png";
+                            colorCarPicLink = "src/Images/Color/Aurora/PearlWhiteMulti-Coat.png";
                             break;
                         case 1:
-                            colorCarPicLink = "Images/Color/Aurora/DeepBlueMetallic.png";
+                            colorCarPicLink = "src/Images/Color/Aurora/DeepBlueMetallic.png";
                             break;
                         case 2:
-                            colorCarPicLink = "Images/Color/Aurora/StealthGrey.png";
+                            colorCarPicLink = "src/Images/Color/Aurora/StealthGrey.png";
                             break;
                         case 3:
-                            colorCarPicLink = "Images/Color/Aurora/Quicksilver.png";
+                            colorCarPicLink = "src/Images/Color/Aurora/Quicksilver.png";
                             break;
                         case 4:
-                            colorCarPicLink = "Images/Color/Aurora/UltraRed.png";
+                            colorCarPicLink = "src/Images/Color/Aurora/UltraRed.png";
                             break;
                     }
                 } else if (index == 1) {
                     switch (selectedColorIndex) {
                         case 0:
-                            colorCarPicLink = "Images/Color/Imperial/PearlWhiteMulti-Coat.png";
+                            colorCarPicLink = "src/Images/Color/Imperial/PearlWhiteMulti-Coat.png";
                             break;
                         case 1:
-                            colorCarPicLink = "Images/Color/Imperial/DeepBlueMetallic.png";
+                            colorCarPicLink = "src/Images/Color/Imperial/DeepBlueMetallic.png";
                             break;
                         case 2:
-                            colorCarPicLink = "Images/Color/Imperial/StealthGrey.png";
+                            colorCarPicLink = "src/Images/Color/Imperial/StealthGrey.png";
                             break;
                         case 3:
-                            colorCarPicLink = "Images/Color/Imperial/SolidBlack.png";
+                            colorCarPicLink = "src/Images/Color/Imperial/SolidBlack.png";
                             break;
                         case 4:
-                            colorCarPicLink = "Images/Color/Imperial/UltraRed.png";
+                            colorCarPicLink = "src/Images/Color/Imperial/UltraRed.png";
                             break;
                     }
                 } else if (index == 2) {
-                    colorCarPicLink = "Images/Color/PowerHaul/Quicksilver.png";
+                    colorCarPicLink = "src/Images/Color/PowerHaul/Quicksilver.png";
                 } else if (index == 3) {
                     switch (selectedColorIndex) {
                         case 0:
-                            colorCarPicLink = "Images/Color/Stratos/PearlWhiteMulti-Coat.png";
+                            colorCarPicLink = "src/Images/Color/Stratos/PearlWhiteMulti-Coat.png";
                             break;
                         case 1:
-                            colorCarPicLink = "Images/Color/Stratos/DeepBlueMetallic.png";
+                            colorCarPicLink = "src/Images/Color/Stratos/DeepBlueMetallic.png";
                             break;
                         case 2:
-                            colorCarPicLink = "Images/Color/Stratos/StealthGrey.png";
+                            colorCarPicLink = "src/Images/Color/Stratos/StealthGrey.png";
                             break;
                         case 3:
-                            colorCarPicLink = "Images/Color/Stratos/QuickSilver.png";
+                            colorCarPicLink = "src/Images/Color/Stratos/QuickSilver.png";
                             break;
                         case 4:
-                            colorCarPicLink = "Images/Color/Stratos/UltraRed.png";
+                            colorCarPicLink = "src/Images/Color/Stratos/UltraRed.png";
                             break;
                     }
                 } else if (index == 4) {
                     switch (selectedColorIndex) {
                         case 0:
-                            colorCarPicLink = "Images/Color/TerraVolt/PearlWhiteMulti-Coat.png";
+                            colorCarPicLink = "src/Images/Color/TerraVolt/PearlWhiteMulti-Coat.png";
                             break;
                         case 1:
-                            colorCarPicLink = "Images/Color/TerraVolt/DeepBlueMetallic.png";
+                            colorCarPicLink = "src/Images/Color/TerraVolt/DeepBlueMetallic.png";
                             break;
                         case 2:
-                            colorCarPicLink = "Images/Color/TerraVolt/StealthGrey.png";
+                            colorCarPicLink = "src/Images/Color/TerraVolt/StealthGrey.png";
                             break;
                         case 3:
-                            colorCarPicLink = "Images/Color/TerraVolt/SolidBlack.png";
+                            colorCarPicLink = "src/Images/Color/TerraVolt/SolidBlack.png";
                             break;
                         case 4:
-                            colorCarPicLink = "Images/Color/TerraVolt/UltraRed.png";
+                            colorCarPicLink = "src/Images/Color/TerraVolt/UltraRed.png";
                             break;
                     }
                 }
 
-                ImageIcon selectedCarColorPicture = new ImageIcon(getClass().getResource(colorCarPicLink));
+                ImageIcon selectedCarColorPicture = new ImageIcon(colorCarPicLink);
                 Image adjustionColorUpdatedPic = selectedCarColorPicture.getImage().getScaledInstance(180, 100, Image.SCALE_SMOOTH);
                 selectedCarColorPicture.setImage(adjustionColorUpdatedPic);
                 imgFilterType[1].setIcon(selectedCarColorPicture);
