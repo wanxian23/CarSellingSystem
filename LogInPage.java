@@ -11,7 +11,7 @@ public class LogInPage {
 
     private JFrame frameLoginPage = new JFrame("EcoMotion Log In Page");
 
-    JTextField usernameField = new JTextField(20);
+    JTextField emailField = new JTextField(20);
     JPasswordField passwField = new JPasswordField(20);
 
     // create log in page
@@ -48,7 +48,7 @@ public class LogInPage {
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(LogInPrompt, gbc);
 
-        JLabel usernameLabel = new JLabel("Username");
+        JLabel usernameLabel = new JLabel("Email");
         usernameLabel.setFont(new Font("Century Gothic", Font.PLAIN, 18));
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -56,11 +56,11 @@ public class LogInPage {
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(usernameLabel, gbc);
 
-        usernameField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-        usernameField.setPreferredSize(new Dimension(200, 30));
+        emailField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        emailField.setPreferredSize(new Dimension(200, 30));
         gbc.gridx = 1;
         gbc.gridy = 1;
-        centerPanel.add(usernameField, gbc);
+        centerPanel.add(emailField, gbc);
 
         JLabel passwLabel = new JLabel("Password");
         passwLabel.setFont(new Font("Century Gothic", Font.PLAIN, 18));
@@ -164,7 +164,7 @@ public class LogInPage {
     ActionListener loginEvent = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
 
-            boolean username = false, pass = false;
+            boolean email = false, pass = false;
 
             try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
 
@@ -178,24 +178,24 @@ public class LogInPage {
                 x = x / 6;
 
                 for (int i = 0 ; x > 0; x--, i+=6) {
-                    username = pass = false;
-                    if (line[i + 1].equals(usernameField.getText())) {
-                        username = true;
+                    email = pass = false;
+                    if (line[i + 2].equals(emailField.getText())) {
+                        email = true;
                     }
 
                     if (line[i + 4].equals(passwField.getText())) {
                         pass = true;
                     }
 
-                    if (username) {
+                    if (email) {
                         break;
                     }
                 }
 
-                System.out.println(username);
+                System.out.println(email);
                 System.out.println(pass);
 
-                if (username && pass) {
+                if (email && pass) {
 
                     JOptionPane.showMessageDialog(null, "LOGIN SUCCESSFULLY!", "LOGIN SUCCESS",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -205,10 +205,10 @@ public class LogInPage {
                     MainPage mainpage = new MainPage();
                     mainpage.showMainPage();
 
-                } else if (!username) {
-                    JOptionPane.showMessageDialog(null, "Username " + usernameField.getText() + " not found", "USERNAME NOT FOUND",
+                } else if (!email) {
+                    JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
                             JOptionPane.WARNING_MESSAGE);
-                } else if (username && !pass) {
+                } else if (email && !pass) {
                     JOptionPane.showMessageDialog(null, "WRONG PASSWORD! PLEASE TRY AGAIN", "PASSWORD WRONG",
                             JOptionPane.WARNING_MESSAGE);
                 }
