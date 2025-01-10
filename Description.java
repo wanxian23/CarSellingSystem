@@ -13,7 +13,7 @@ public class Description {
     private JLabel priceLabel;
     private JPanel buttonPanel;
 
-    private String[] carCategories = {"EcoMotion Sedan", "EcoMotion Luxury EV", "EcoMotion Pickup Truck", "EcoMotion Sports EV", "Ecomotion SUV" };
+    private String[] carCategories = {"EcoMotion Sedan", "EcoMotion Luxury EV", "EcoMotion Pickup Truck", "EcoMotion Sports EV", "Ecomotion SUV"};
     private String[] carModels = {"Aurora", "Imperial", "PowerHaul", "Stratos", "TerraVolt"};
 
     private String[][] variants = {
@@ -40,8 +40,11 @@ public class Description {
             {"RM 408,000", "RM 577,000"}
     };
 
+    private int[] selectedVariantIndex = new int[5];
+    private int selectedCarIndex = -1;
+
     public Description() {
-        frame = new JFrame("Description of EcoMotion");
+        frame = new JFrame("EcoMotion Details");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width, screenSize.height);
@@ -50,8 +53,8 @@ public class Description {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Title
-        mainPanel.add(Box.createVerticalStrut(20));
-        titleLabel = new JLabel("Description of EcoMotion", JLabel.CENTER);
+        mainPanel.add(Box.createVerticalStrut(10));
+        titleLabel = new JLabel("Description for EcoMotion", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         JPanel titlePanel = new JPanel();
         titlePanel.add(titleLabel);
@@ -60,13 +63,13 @@ public class Description {
 
         // Car Images Panel
         carPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 50));
-        carPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 20));
+        carPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 80, 30));
 
         // Create car section (image + category + combo box)
         for (int i = 0; i < 5; i++) {
             JPanel carSetPanel = new JPanel();
             carSetPanel.setLayout(new BoxLayout(carSetPanel, BoxLayout.Y_AXIS));
-            carSetPanel.setPreferredSize(new Dimension(220,220));
+            carSetPanel.setPreferredSize(new Dimension(220, 220));
 
             // Add image
             ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/Preview_n_Model/Car" + (i + 1) + ".png"));
@@ -91,14 +94,18 @@ public class Description {
             carSetPanel.add(carModelLabel);
             carSetPanel.add(Box.createVerticalStrut(10));
 
-            // Create a combo box for the car variants
+            // Create the combo box
             JComboBox<String> variantComboBox = new JComboBox<>(variants[i]);
             final int carIndexFinal = i;
 
+            variantComboBox.addActionListener(e -> {
+                selectedVariantIndex[carIndexFinal] = variantComboBox.getSelectedIndex();
+                selectedCarIndex = carIndexFinal;
+                updateDescriptionAndPrice(carIndexFinal, variantComboBox.getSelectedIndex());
+            });
+            variantComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
             variantComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
             variantComboBox.setPreferredSize(new Dimension(150, 30));
-            variantComboBox.addActionListener(e -> updateDescriptionAndPrice(carIndexFinal, variantComboBox.getSelectedIndex()));
-            variantComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
             carSetPanel.add(variantComboBox);
 
             carPanel.add(carSetPanel);
@@ -106,7 +113,7 @@ public class Description {
 
         mainPanel.add(carPanel);
 
-        mainPanel.add(Box.createVerticalStrut(40));
+        mainPanel.add(Box.createVerticalStrut(30));
         // Description and Price Display
         descriptionPanel = new JPanel();
         descriptionPanel.setLayout(new BorderLayout());
@@ -118,24 +125,24 @@ public class Description {
         descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
 
         priceLabel = new JLabel("Price: RM 0", JLabel.CENTER);
-        priceLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+        priceLabel.setFont(new Font("Arial", Font.BOLD, 40));
         descriptionPanel.add(priceLabel, BorderLayout.SOUTH);
         mainPanel.add(descriptionPanel);
 
         // Buttons Panel
-        mainPanel.add(Box.createVerticalStrut(30));
+        mainPanel.add(Box.createVerticalStrut(10));
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 0));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 70, 0));
 
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.PLAIN, 35));
         backButton.addActionListener(e -> showBackPage());
-        buttonPanel.add(backButton,BorderLayout.WEST);
+        buttonPanel.add(backButton, BorderLayout.WEST);
 
         JButton nextButton = new JButton("Next");
         nextButton.setFont(new Font("Arial", Font.PLAIN, 35));
         nextButton.addActionListener(e -> showNextPage());
-        buttonPanel.add(nextButton,BorderLayout.EAST);
+        buttonPanel.add(nextButton, BorderLayout.EAST);
 
         mainPanel.add(buttonPanel);
 
@@ -143,16 +150,12 @@ public class Description {
         frame.setVisible(true);
     }
 
-    private void updateDescriptionAndPrice(int carIndex, int variantIndex)
-    {
-        if (variantIndex < 0)
-        {
+    private void updateDescriptionAndPrice(int carIndex, int variantIndex) {
+        if (variantIndex < 0) {
             descriptionLabel.setText("<html><p style='padding:10px;'>Select a variant to see details here.</p></html>");
             priceLabel.setText("Price: RM 0");
-            priceLabel.setFont(new Font("Arial", Font.PLAIN, 40));
-        }
-        else
-        {
+            priceLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        } else {
             String description = variantDescriptions[carIndex][variantIndex];
             String price = variantPrices[carIndex][variantIndex];
             descriptionLabel.setText("<html><p style='padding:10px;'>" + description + "</p></html>");
@@ -160,12 +163,26 @@ public class Description {
         }
     }
 
-    private void showBackPage(){
-        JOptionPane.showMessageDialog(frame, "Back button clicked. Navigating to the previous page.");
+    private void showBackPage() {
+        frame.dispose();
     }
 
     private void showNextPage() {
-        JOptionPane.showMessageDialog(frame, "Next button clicked for selected car variant");
+        if (selectedCarIndex == -1 || selectedVariantIndex[selectedCarIndex] == -1) {
+            JOptionPane.showMessageDialog(frame, "Please select a variant.");
+            return;
+        }
+
+        String[] selectedVariantPrice = new String[5];
+        for (int i = 0; i < 5; i++) {
+            int selectedIndex = selectedVariantIndex[i];
+            if (selectedIndex != -1) {
+                selectedVariantPrice[i] = variantPrices[i][selectedIndex];
+            }
+        }
+
+        new DisplayColorCar(selectedVariantPrice, selectedCarIndex);
+        frame.dispose();
     }
 
     public static void main(String[] args) {
