@@ -28,11 +28,14 @@ public class MainPage {
     private String[] colorType = {"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
     private JComboBox<String>[] filterType = new JComboBox[2];
     private JSlider priceSlider = new JSlider(0, 1000000, (1000000) / 2);
-    private JLabel RMLabel = new JLabel("RM " + (1000000) / 2);
+    private JLabel RMLabelFrom = new JLabel("RM100,000");
+    private JLabel RMLabelTo = new JLabel("RM300,000");
 
     private String colorCarPicLink = "src/Images/Color/Aurora/PearlWhiteMulti-Coat.png";
     private JLabel[] imgFilterType = new JLabel[2];
 
+
+    JFrame frameMainPage = new JFrame("EcoMotion Main Page");
 
 
     // Constructor
@@ -84,9 +87,11 @@ public class MainPage {
 
 
         // Title Filter
-        titleFilter.setFont(new Font("Arial", Font.BOLD, 25));
+        titleFilter.setFont(new Font("Arial", Font.BOLD, 28));
         titleFilterPanel.add(titleFilter);
-        titleFilterPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+        titleFilterPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        titleFilterPanel.setPreferredSize(new Dimension(200, 45));
+
 
         // Each filter part (Model, Color and Price)
         Border blackLine = BorderFactory.createLineBorder(Color.black);
@@ -94,7 +99,8 @@ public class MainPage {
         Font filterTypeFont = new Font("Arial", Font.BOLD, 15);
         for (int x = 0; x < 3; x++) {
             filterTypeNamePanel[x] = new JPanel();
-            filterTypeNamePanel[x].setLayout(new FlowLayout(1, 50, 10));
+            filterTypeNamePanel[x].setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+            filterTypeNamePanel[x].setPreferredSize(new Dimension(200, 170));
         }
 
         ImageIcon filterPictureModel = new ImageIcon(carPictureLink);
@@ -123,21 +129,28 @@ public class MainPage {
         TitledBorder priceTitleBorder = BorderFactory.createTitledBorder(blackLine, "PRICE");
         priceTitleBorder.setTitleFont(filterTypeFont);
         filterTypeNamePanel[2].setBorder(priceTitleBorder);
-        priceSlider.setPaintTrack(true);
-        priceSlider.setPaintTicks(true);
-        priceSlider.setPaintLabels(true);
-        priceSlider.setMajorTickSpacing(200000);
-        priceSlider.setMinorTickSpacing(100000);
-        priceSlider.addChangeListener(priceEvent);
-        priceSlider.setPreferredSize(new Dimension(300, 50));
-        JLabel priceStatementLabel = new JLabel("Price Selected");
-        priceStatementLabel.setFont(new Font("Arial", Font.BOLD, 25));
+
+        JLabel priceStatementLabel = new JLabel("From");
+        JLabel toLabel = new JLabel("To");
+
+        JPanel combineRM = new JPanel();
+        combineRM.setLayout(new GridLayout(4, 1, 0, 2));
+
+        priceStatementLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        RMLabelFrom.setFont(new Font("Arial", Font.BOLD, 30));
+        toLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        RMLabelTo.setFont(new Font("Arial", Font.BOLD, 30));
+
         priceStatementLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        filterTypeNamePanel[2].add(priceStatementLabel, BorderLayout.NORTH);
-        RMLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        RMLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        filterTypeNamePanel[2].add(RMLabel, BorderLayout.CENTER);
-        filterTypeNamePanel[2].add(priceSlider, BorderLayout.SOUTH);
+        RMLabelFrom.setHorizontalAlignment(SwingConstants.CENTER);
+        toLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        RMLabelTo.setHorizontalAlignment(SwingConstants.CENTER);
+
+        combineRM.add(priceStatementLabel);
+        combineRM.add(RMLabelFrom);
+        combineRM.add(toLabel);
+        combineRM.add(RMLabelTo);
+        filterTypeNamePanel[2].add(combineRM, BorderLayout.CENTER);
 
         JPanel filterTypePanel = new JPanel();
         filterTypePanel.setLayout(new GridLayout(1,3,100, 0));
@@ -146,7 +159,6 @@ public class MainPage {
         for (int x = 0; x < filterType.length; x++) {
             filterType[x].setSelectedIndex(0);
             filterType[x].setPreferredSize(new Dimension(200, 25));
-            filterTypeNamePanel[x].setPreferredSize(new Dimension(0, 160));
             filterTypeNamePanel[x].add(filterType[x]);
             filterTypePanel.add(filterTypeNamePanel[x]);
         }
@@ -157,10 +169,11 @@ public class MainPage {
 
 
         // Button filter part
-        JButton filterButton = new JButton("FILTER");
+        JButton filterButton = new JButton("Order Now");
         filterButton.setFont(new Font("Arial", Font.BOLD, 25));
         filterButton.setForeground(Color.WHITE);
         filterButton.setBackground(Color.black);
+        filterButton.addActionListener(nextPageButton);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(filterButton);
@@ -182,13 +195,12 @@ public class MainPage {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Frame part
-        JFrame frame = new JFrame("EcoMotion Main Page");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.add(mainPagePanel);
-        frame.setSize(screenSize.width, screenSize.height);
-        frame.setResizable(true);
-        frame.setVisible(true);
+        frameMainPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameMainPage.pack();
+        frameMainPage.add(mainPagePanel);
+        frameMainPage.setSize(screenSize.width, screenSize.height);
+        frameMainPage.setResizable(true);
+        frameMainPage.setVisible(true);
 
     }
 
@@ -249,30 +261,40 @@ public class MainPage {
                         carPictureLink = "src/Images/Preview_n_Model/Car1.png";
                         colorCarPicLink = "src/Images/Color/Aurora/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
+                        RMLabelFrom.setText("RM100,000");
+                        RMLabelTo.setText("RM300,000");
                         break;
                     case 1:
                         index = 1;
                         carPictureLink = "src/Images/Preview_n_Model/Car2.png";
                         colorCarPicLink = "src/Images/Color/Imperial/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Solid Black", "Ultra Red"};
+                        RMLabelFrom.setText("RM500,000");
+                        RMLabelTo.setText("RM1100,000");
                         break;
                     case 2:
                         index = 2;
                         carPictureLink = "src/Images/Preview_n_Model/Car3.png";
                         colorCarPicLink = "src/Images/Color/PowerHaul/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Quicksilver"};
+                        RMLabelFrom.setText("RM200,000");
+                        RMLabelTo.setText("RM500,000");
                         break;
                     case 3:
                         index = 3;
                         carPictureLink = "src/Images/Preview_n_Model/Car4.png";
                         colorCarPicLink = "src/Images/Color/Stratos/PearlWhiteMulti-Coat.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Quicksilver", "Ultra Red"};
+                        RMLabelFrom.setText("RM1000,000");
+                        RMLabelTo.setText("RM1000,000");
                         break;
                     case 4:
                         index = 4;
                         carPictureLink = "src/Images/Preview_n_Model/Car5.png";
                         colorCarPicLink = "src/Images/Color/TerraVolt/QuickSilver.png";
                         colorType = new String[]{"Pearl White Multi-Coat", "Deep Blue Metallic", "Stealth Grey", "Solid Black", "Ultra Red"};
+                        RMLabelFrom.setText("RM400,000");
+                        RMLabelTo.setText("RM600,000");
                         break;
                 }
 
@@ -387,7 +409,15 @@ public class MainPage {
     // Listener for price filter part
     ChangeListener priceEvent = new ChangeListener() {
         public void stateChanged(ChangeEvent e) {
-            RMLabel.setText("RM " + priceSlider.getValue());
+            RMLabelFrom.setText("RM " + priceSlider.getValue());
+        }
+    };
+
+    ActionListener nextPageButton = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            frameMainPage.setVisible(false);
+            WelcomePage welcomepage = new WelcomePage();
+            welcomepage.createWelcomePage();
         }
     };
 
