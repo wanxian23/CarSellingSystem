@@ -18,7 +18,7 @@ public class MainPage {
 
     // Filter Title Part
     private JPanel titleFilterPanel = new JPanel();
-    private JLabel titleFilter = new JLabel("Filter The Info of Car");
+    private JLabel titleFilter = new JLabel("Overview of Cars");
 
 
 
@@ -45,15 +45,6 @@ public class MainPage {
 
 
     public void showMainPage() {
-
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String fonts[] = ge.getAvailableFontFamilyNames();
-
-        // Getting the font family names
-        for (String i : fonts) {
-            System.out.println(i + " ");
-        }
-
 
         // Title
         JPanel titlelPanel = new JPanel();
