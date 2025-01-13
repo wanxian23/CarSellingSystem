@@ -202,8 +202,8 @@ public class LogInPage {
 
                     frameLoginPage.setVisible(false);
 
-                    MainPage mainpage = new MainPage();
-                    mainpage.showMainPage();
+                    Description descriptionPage = new Description();
+                    descriptionPage.showDescriptionPage();
 
                 } else if (!email) {
                     JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
@@ -219,10 +219,5 @@ public class LogInPage {
 
         }
     };
-
-
-    public static void main (String[] args){
-        LogInPage wp = new LogInPage();
-        wp.createLogInPage();
-    }
+    
 }
