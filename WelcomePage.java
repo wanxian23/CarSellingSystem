@@ -87,10 +87,5 @@ public class WelcomePage {
             signup.showSignup();
         }
     };
-
-    public static void main(String[] args) {
-        WelcomePage welcomepage = new WelcomePage();
-        welcomepage.createWelcomePage();
-    }
-
+    
 }
