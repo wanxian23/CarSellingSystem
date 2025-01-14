@@ -1,13 +1,61 @@
+
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TransactionPage {
 
-    public void createTransactionPage() {
+    private String nameUser;
+    private String emailUser;
+    private String phoneUser;
+    private String addressFirstHalfUser;
+    private String addressSecondHalfUser;
+    private String paymentMethod;
 
-        JFrame frameTransactionPage = new JFrame("EcoMotion Transaction Page");
+    private String carCategoryChoose;
+    private String carModelChoose;
+    private String variantChoose;
+    private double basePrice;
+    private String colorChoose;
+    private int motorPowerChoose;
+
+    private double downPayment;
+    private int roadTax;
+    private double monthlyInstalmentEMI;
+    private double totalAmount;
+
+    String[] deliveryLabels = {"Name:","Phone Number:", "Street:", "City:", "State:", "Postal Code:"};
+    JTextField[] textField1 = new JTextField[5];
+
+    JComboBox<String> stateComboBox;
+
+    String[] cardLabels = {"Cardholder Name:", "Card Number:", "Expiry Date (MM/YY):", "CVV:", "Billing Address (Optional):"};
+    JTextField monthTField = new JTextField();
+    JTextField yearTField = new JTextField();
+    JTextField[] textField2 = new JTextField[4];
+
+    private JFrame frameTransactionPage = new JFrame("EcoMotion Transaction Page");
+
+    public void createTransactionPage(String emailUser, String carCategoryChoose, String carModelChoose,
+                                      String variantChoose, double basePrice, String colorChoose, int motorPowerChoose, double downPayment,
+                                      int roadTax, double monthlyInstalmentEMI, double totalAmount) {
+
+        this.emailUser= emailUser;
+
+        this.carCategoryChoose = carCategoryChoose;
+        this.carModelChoose = carModelChoose;
+        this.variantChoose = variantChoose;
+        this.basePrice = basePrice;
+        this.motorPowerChoose = motorPowerChoose;
+        this.colorChoose = colorChoose;
+
+        this.downPayment = downPayment;
+        this.roadTax = roadTax;
+        this.monthlyInstalmentEMI = monthlyInstalmentEMI;
+        this.totalAmount = totalAmount;
+
         frameTransactionPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTransactionPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -24,32 +72,34 @@ public class TransactionPage {
         JPanel radioBPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         radioBPanel.setBackground(Color.WHITE);
 
-        JRadioButton cashRB = new JRadioButton("CHEQUE");
-        cashRB.setFont(new Font("Century Gothic", Font.BOLD, 24));
-        cashRB.setBackground(Color.WHITE);
+        JRadioButton chequeRB = new JRadioButton("CHEQUE");
+        chequeRB.setFont(new Font("Century Gothic", Font.BOLD, 24));
+        chequeRB.setBackground(Color.WHITE);
 
         JRadioButton cardRB = new JRadioButton("CARD");
         cardRB.setFont(new Font("Century Gothic", Font.BOLD, 24));
         cardRB.setBackground(Color.WHITE);
 
         ButtonGroup groupTransB = new ButtonGroup();
-        groupTransB.add(cashRB);
+        groupTransB.add(chequeRB);
         groupTransB.add(cardRB);
 
-        radioBPanel.add(cashRB);
+        radioBPanel.add(chequeRB);
         radioBPanel.add(cardRB);
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(radioBPanel);
 
         JPanel deliveryDetailsPanel = new JPanel(new GridBagLayout());
-        deliveryDetailsPanel.setBorder(BorderFactory.createTitledBorder("Delivery Details"));
+        TitledBorder deliveryDetailsTtile = BorderFactory.createTitledBorder("Delivery Details");
+        deliveryDetailsTtile.setTitleFont(new Font("Arial", Font.BOLD, 20));
+        deliveryDetailsPanel.setBorder(deliveryDetailsTtile);
+        deliveryDetailsPanel.setFont(new Font("Arial", Font.BOLD, 20));
         deliveryDetailsPanel.setBackground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] deliveryLabels = {"Name:","Phone Number:", "Street:", "City:", "State:", "Postal Code:"};
         Dimension labelDimension = new Dimension(260, 30);
         Dimension textFieldDimension = new Dimension(300, 30);
 
@@ -68,29 +118,39 @@ public class TransactionPage {
                         "Labuan", "Malacca", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis",
                         "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"
                 };
-                JComboBox<String> stateComboBox = new JComboBox<>(states);
+                stateComboBox = new JComboBox<>(states);
                 stateComboBox.setPreferredSize(textFieldDimension);
                 stateComboBox.setFont(new Font("Century Gothic", Font.PLAIN, 15));
                 gbc.gridx = 1;
                 deliveryDetailsPanel.add(stateComboBox, gbc);
-            } else {
 
-                JTextField textField = new JTextField();
-                textField.setPreferredSize(textFieldDimension);
+                textField1[4] = new JTextField();
+                textField1[4].setPreferredSize(textFieldDimension);
                 gbc.gridx = 1;
-                deliveryDetailsPanel.add(textField, gbc);
+                gbc.gridy = 1 + i;
+                deliveryDetailsPanel.add(textField1[4], gbc);
+
+            } else if (i < 4) {
+
+                textField1[i] = new JTextField();
+                textField1[i].setPreferredSize(textFieldDimension);
+                gbc.gridx = 1;
+                deliveryDetailsPanel.add(textField1[i], gbc);
             }
         }
+
+        textField1[0].requestFocusInWindow();
 
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(deliveryDetailsPanel);
 
         JPanel cardDetailsPanel = new JPanel(new GridBagLayout());
-        cardDetailsPanel.setBorder(BorderFactory.createTitledBorder("Card Details"));
+        TitledBorder carDetailsTtile = BorderFactory.createTitledBorder("Card Details");
+        carDetailsTtile.setTitleFont(new Font("Arial", Font.BOLD, 20));
+        cardDetailsPanel.setBorder(carDetailsTtile);
         cardDetailsPanel.setBackground(Color.WHITE);
         cardDetailsPanel.setVisible(false);
 
-        String[] cardLabels = {"Cardholder Name:", "Card Number:", "Expiry Date (MM/YY):", "CVV:", "Billing Address (Optional):"};
         for (int i = 0; i < cardLabels.length; i++) {
             JLabel label = new JLabel(cardLabels[i]);
             label.setFont(new Font("Century Gothic", Font.PLAIN, 20));
@@ -105,7 +165,6 @@ public class TransactionPage {
                 JPanel expiryDatePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
                 expiryDatePanel.setBackground(Color.WHITE);
 
-                JTextField monthTField = new JTextField();
                 monthTField.setPreferredSize(new Dimension(50, 30));
                 monthTField.setFont(new Font("Century Gothic", Font.PLAIN, 15));
                 monthTField.setHorizontalAlignment(JTextField.CENTER);
@@ -113,7 +172,6 @@ public class TransactionPage {
                 JLabel slashLabel = new JLabel("/");
                 slashLabel.setFont(new Font("Century Gothic", Font.BOLD, 20));
 
-                JTextField yearTField = new JTextField();
                 yearTField.setPreferredSize(new Dimension(50, 30));
                 yearTField.setFont(new Font("Century Gothic", Font.PLAIN, 15));
                 yearTField.setHorizontalAlignment(JTextField.CENTER);
@@ -124,13 +182,25 @@ public class TransactionPage {
 
                 gbc.gridx = 1;
                 cardDetailsPanel.add(expiryDatePanel, gbc);
-            } else {
-                JTextField textField = new JTextField();
-                textField.setPreferredSize(textFieldDimension);
+
+                textField2[i] = new JTextField();
+                textField2[i].setPreferredSize(textFieldDimension);
                 gbc.gridx = 1;
-                cardDetailsPanel.add(textField, gbc);
+                gbc.gridy = 1 + i;
+                cardDetailsPanel.add(textField2[i], gbc);
+            } else if ( i < cardLabels.length - 2) {
+                textField2[i] = new JTextField();
+                textField2[i].setPreferredSize(textFieldDimension);
+                gbc.gridx = 1;
+                cardDetailsPanel.add(textField2[i], gbc);
             }
         }
+
+        textField2[3] = new JTextField();
+        textField2[3].setPreferredSize(textFieldDimension);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        cardDetailsPanel.add(textField2[3], gbc);
 
         JLabel cardTypeLabel = new JLabel("Card Type:");
         cardTypeLabel.setFont(new Font("Century Gothic", Font.PLAIN, 20));
@@ -169,7 +239,7 @@ public class TransactionPage {
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(cardDetailsPanel);
 
-        cashRB.addActionListener(e -> cardDetailsPanel.setVisible(false));
+        chequeRB.addActionListener(e -> cardDetailsPanel.setVisible(false));
         cardRB.addActionListener(e -> cardDetailsPanel.setVisible(true));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
@@ -191,10 +261,101 @@ public class TransactionPage {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (cashRB.isSelected()) {
-                    JOptionPane.showMessageDialog(frameTransactionPage, "Cash payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
+                for (int x = 0; x < deliveryLabels.length - 1; x++) {
+                    if (textField1[x].getText().isEmpty() && x != 1) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
+                if (textField1[1].getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else {
+                    if (textField1[1].getText().length() != 10 &&  textField1[1].getText().length() != 11) {
+                        JOptionPane.showMessageDialog(null, "Phone Number " + textField1[1].getText() + " was not between the length of 10 or 11",
+                                "ERROR! PHONE NUMBER OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+
+                if (stateComboBox.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(frameTransactionPage, "State must be selected either one!", "Error! No Empty State Allowed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (chequeRB.isSelected()) {
+
+                        nameUser = textField1[0].getText();
+                        phoneUser = textField1[1].getText();
+                        addressFirstHalfUser = textField1[2].getText() + "  ";
+                        for (int x = 3; x < deliveryLabels.length - 1; x++) {
+                            addressFirstHalfUser += textField1[x].getText() + "  ";
+                        }
+                        addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
+                        paymentMethod = chequeRB.getText();
+
+                        JOptionPane.showMessageDialog(frameTransactionPage, "Cash payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        frameTransactionPage.setVisible(false);
+
+                        ReceiptPage receiptPage = new ReceiptPage();
+                        receiptPage.showReceiptPage(nameUser, emailUser, phoneUser, addressFirstHalfUser, addressSecondHalfUser, paymentMethod, carCategoryChoose, carModelChoose,
+                                variantChoose, basePrice, colorChoose, motorPowerChoose, downPayment, roadTax, monthlyInstalmentEMI, totalAmount);
+
                 } else if (cardRB.isSelected()) {
+
+                    for (int x = 0; x < cardLabels.length - 2; x++) {
+                        if (textField2[x].getText().isEmpty() && x != 1 && x != 2) {
+                            JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+
+                    if (textField2[1].getText().isEmpty() || textField2[2].getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else if (textField2[1].getText().length() != 16) {
+                        if (textField2[1].getText().length() != 16) {
+                            JOptionPane.showMessageDialog(null, "Card Number " + textField2[1].getText() + " was not 16 digits",
+                                    "ERROR! CARD NUMBER WAS OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                    } else if (textField2[2].getText().length() != 3) {
+                        JOptionPane.showMessageDialog(null, "CVV Number " + textField2[2].getText() + " was not 3 digits",
+                                "ERROR! CVV NUMBER WAS OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    if (monthTField.getText().isEmpty() || yearTField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "Must Filled In the Year and Month for card!", "Error! No Empty Month & Year Allowed!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else if (monthTField.getText().length() != 2 || yearTField.getText().length() != 2) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "Length of Year and Month for card must be 2 digits!", "Error! Year & Month OUT OF RANGE!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!visaRB.isSelected() && !masterCardRB.isSelected()) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "Must Choose Visa or Master Either One Card Type!", "Error! No Card Type is Choose!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    nameUser = textField1[0].getText();
+                    phoneUser = textField1[1].getText();
+                    addressFirstHalfUser = textField1[2].getText() + "  ";
+                    for (int x = 3; x < deliveryLabels.length - 1; x++) {
+                        addressFirstHalfUser += textField1[x].getText() + "  ";
+                    }
+                    addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
+                    paymentMethod = cardRB.getText();
+
                     JOptionPane.showMessageDialog(frameTransactionPage, "Card payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    frameTransactionPage.setVisible(false);
+
+                    ReceiptPage receiptPage = new ReceiptPage();
+                    receiptPage.showReceiptPage(nameUser, emailUser, phoneUser, addressFirstHalfUser, addressSecondHalfUser, paymentMethod, carCategoryChoose, carModelChoose,
+                            variantChoose, basePrice, colorChoose, motorPowerChoose, downPayment, roadTax, monthlyInstalmentEMI, totalAmount);
+
                 } else {
                     JOptionPane.showMessageDialog(frameTransactionPage, "Please select a payment method.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -205,13 +366,12 @@ public class TransactionPage {
         transactionPanel.add(buttonPanel);
 
         JScrollPane scrollPane = new JScrollPane(transactionPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         frameTransactionPage.add(scrollPane);
         frameTransactionPage.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        TransactionPage transPage = new TransactionPage();
-        transPage.createTransactionPage();
-    }
 }
+
 
