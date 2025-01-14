@@ -157,7 +157,7 @@ public class Description {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 70, 0));
 
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton("Back To Overview");
         backButton.setFont(new Font("Arial", Font.PLAIN, 35));
         backButton.setForeground(Color.WHITE);
         backButton.setBackground(Color.black);
@@ -200,6 +200,8 @@ public class Description {
 
     private void showBackPage() {
         frame.dispose();
+        OverviewPage overviewPage = new OverviewPage();
+        overviewPage.showOverviewPage();
     }
 
     private void showNextPage() {
