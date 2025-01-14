@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class LogInPage {
 
+    private String nameUser;
+    private String emailUser;
+    private String phoneUser;
+
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     private JFrame frameLoginPage = new JFrame("EcoMotion Log In Page");
@@ -58,6 +62,7 @@ public class LogInPage {
 
         emailField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         emailField.setPreferredSize(new Dimension(200, 30));
+        emailField.addKeyListener(loginEvent2);
         gbc.gridx = 1;
         gbc.gridy = 1;
         centerPanel.add(emailField, gbc);
@@ -70,6 +75,7 @@ public class LogInPage {
 
         passwField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         passwField.setPreferredSize(new Dimension(200, 30));
+        passwField.addKeyListener(loginEvent2);
         gbc.gridx = 1;
         gbc.gridy = 2;
         centerPanel.add(passwField, gbc);
@@ -110,7 +116,7 @@ public class LogInPage {
         loginButton.setForeground(Color.WHITE);
         loginButton.setBackground(Color.BLACK);
         loginButton.setPreferredSize(new Dimension(100, 35));
-        loginButton.addActionListener(loginEvent);
+        loginButton.addKeyListener(loginEvent2);
         buttonPanel.add(loginButton);
 
         // adding button panel to center panel
@@ -141,6 +147,8 @@ public class LogInPage {
         frameLoginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLoginPage.pack();
         frameLoginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameLoginPage.setFocusable(true);
+        frameLoginPage.requestFocusInWindow();
         frameLoginPage.setVisible(true);
     }
 
@@ -158,6 +166,67 @@ public class LogInPage {
 
             WelcomePage welcomepage = new WelcomePage();
             welcomepage.createWelcomePage();
+        }
+    };
+
+    KeyListener loginEvent2 = new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                boolean email = false, pass = false;
+
+                try (BufferedReader reader = new BufferedReader(new FileReader("src/UserInfoFile.txt"))) {
+
+                    int x = 0;
+                    String[] line = new String[1000];
+
+                    while ((line[x] = reader.readLine()) != null) {
+                        x++;
+                    }
+
+                    x = x / 6;
+
+                    for (int i = 0; x > 0; x--, i += 6) {
+                        email = pass = false;
+                        if (line[i + 2].equals(emailField.getText())) {
+                            email = true;
+                        }
+
+                        if (line[i + 4].equals(passwField.getText())) {
+                            pass = true;
+                        }
+
+                        if (email) {
+                            nameUser = line[i + 1];
+                            emailUser = line[i + 2];
+                            phoneUser = line[i + 3];
+                            break;
+                        }
+                    }
+
+                    if (email && pass) {
+
+                        JOptionPane.showMessageDialog(null, "LOGIN SUCCESSFULLY!", "LOGIN SUCCESS",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        frameLoginPage.setVisible(false);
+
+                        Description descriptionPage = new Description();
+                        descriptionPage.showDescriptionPage(nameUser, emailUser, phoneUser);
+
+                    } else if (!email) {
+                        JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else if (email && !pass) {
+                        JOptionPane.showMessageDialog(null, "WRONG PASSWORD! PLEASE TRY AGAIN", "PASSWORD WRONG",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+
+                } catch (IOException fileException) {
+                    JOptionPane.showMessageDialog(null, "Login Failed! Please try to create an account!", "File not found", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
         }
     };
 
@@ -188,12 +257,12 @@ public class LogInPage {
                     }
 
                     if (email) {
+                        nameUser = line[i + 1];
+                        emailUser = line[i + 2];
+                        phoneUser = line[i + 3];
                         break;
                     }
                 }
-
-                System.out.println(email);
-                System.out.println(pass);
 
                 if (email && pass) {
 
@@ -203,7 +272,7 @@ public class LogInPage {
                     frameLoginPage.setVisible(false);
 
                     Description descriptionPage = new Description();
-                    descriptionPage.showDescriptionPage();
+                    descriptionPage.showDescriptionPage(nameUser, emailUser, phoneUser);
 
                 } else if (!email) {
                     JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
@@ -219,5 +288,5 @@ public class LogInPage {
 
         }
     };
-    
+
 }
