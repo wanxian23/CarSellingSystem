@@ -52,7 +52,7 @@ public class TransactionPage {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] deliveryLabels = {"Name:", "Contact Number:", "Street:", "City:", "State/Province:", "Postal Code:"};
+        String[] deliveryLabels = {"Name:", "Contact Number:", "Street:", "City:", "State:", "Postal Code:"};
         Dimension labelDimension = new Dimension(260, 30);
         Dimension textFieldDimension = new Dimension(300, 30);
 
@@ -65,11 +65,26 @@ public class TransactionPage {
             gbc.anchor = GridBagConstraints.WEST;
             deliveryDetailsPanel.add(label, gbc);
 
-            JTextField textField = new JTextField();
-            textField.setPreferredSize(textFieldDimension);
-            gbc.gridx = 1;
-            deliveryDetailsPanel.add(textField, gbc);
+            if (i == 4) {
+                String[] states = {
+                        "Select your state", "Johor", "Kedah", "Kelantan", "Kuala Lumpur",
+                        "Labuan", "Malacca", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis",
+                        "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"
+                };
+                JComboBox<String> stateComboBox = new JComboBox<>(states);
+                stateComboBox.setPreferredSize(textFieldDimension);
+                stateComboBox.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+                gbc.gridx = 1;
+                deliveryDetailsPanel.add(stateComboBox, gbc);
+            } else {
+
+                JTextField textField = new JTextField();
+                textField.setPreferredSize(textFieldDimension);
+                gbc.gridx = 1;
+                deliveryDetailsPanel.add(textField, gbc);
+            }
         }
+
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(deliveryDetailsPanel);
 
@@ -164,6 +179,8 @@ public class TransactionPage {
                     JOptionPane.showMessageDialog(frameTransactionPage, "Please select a payment method.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            
         });
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(buttonPanel);
