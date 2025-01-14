@@ -44,7 +44,7 @@ public class OverviewPage {
     }
 
 
-    public void showMainPage() {
+    public void showOverviewPage() {
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String fonts[] = ge.getAvailableFontFamilyNames();
@@ -426,7 +426,7 @@ public class OverviewPage {
     public static void main(String[] agrs) {
 
         OverviewPage car = new OverviewPage();
-        car.showMainPage();
+        car.showOverviewPage();
 
     }
 
