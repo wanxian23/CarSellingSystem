@@ -11,12 +11,10 @@ public class TransactionPage {
         frameTransactionPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTransactionPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-
         JPanel transactionPanel = new JPanel();
         transactionPanel.setLayout(new BoxLayout(transactionPanel, BoxLayout.Y_AXIS));
         transactionPanel.setBackground(Color.WHITE);
         transactionPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Padding around the panel
-
 
         JLabel transMethod = new JLabel("Transaction Method");
         transMethod.setFont(new Font("Century Gothic", Font.BOLD, 36));
@@ -43,7 +41,6 @@ public class TransactionPage {
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(radioBPanel);
 
-
         JPanel deliveryDetailsPanel = new JPanel(new GridBagLayout());
         deliveryDetailsPanel.setBorder(BorderFactory.createTitledBorder("Delivery Details"));
         deliveryDetailsPanel.setBackground(Color.WHITE);
@@ -52,7 +49,7 @@ public class TransactionPage {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] deliveryLabels = {"Name:", "Contact Number:", "Street:", "City:", "State:", "Postal Code:"};
+        String[] deliveryLabels = {"Name:", "Street:", "City:", "State:", "Postal Code:"};
         Dimension labelDimension = new Dimension(260, 30);
         Dimension textFieldDimension = new Dimension(300, 30);
 
@@ -65,7 +62,7 @@ public class TransactionPage {
             gbc.anchor = GridBagConstraints.WEST;
             deliveryDetailsPanel.add(label, gbc);
 
-            if (i == 4) {
+            if (i == 3) {
                 String[] states = {
                         "Select your state", "Johor", "Kedah", "Kelantan", "Kuala Lumpur",
                         "Labuan", "Malacca", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis",
@@ -88,7 +85,6 @@ public class TransactionPage {
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(deliveryDetailsPanel);
 
-
         JPanel cardDetailsPanel = new JPanel(new GridBagLayout());
         cardDetailsPanel.setBorder(BorderFactory.createTitledBorder("Card Details"));
         cardDetailsPanel.setBackground(Color.WHITE);
@@ -104,10 +100,36 @@ public class TransactionPage {
             gbc.anchor = GridBagConstraints.WEST;
             cardDetailsPanel.add(label, gbc);
 
-            JTextField textField = new JTextField();
-            textField.setPreferredSize(textFieldDimension);
-            gbc.gridx = 1;
-            cardDetailsPanel.add(textField, gbc);
+            if (cardLabels[i].equals("Expiry Date (MM/YY):")) {
+
+                JPanel expiryDatePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+                expiryDatePanel.setBackground(Color.WHITE);
+
+                JTextField monthTField = new JTextField();
+                monthTField.setPreferredSize(new Dimension(50, 30));
+                monthTField.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+                monthTField.setHorizontalAlignment(JTextField.CENTER);
+
+                JLabel slashLabel = new JLabel("/");
+                slashLabel.setFont(new Font("Century Gothic", Font.BOLD, 20));
+
+                JTextField yearTField = new JTextField();
+                yearTField.setPreferredSize(new Dimension(50, 30));
+                yearTField.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+                yearTField.setHorizontalAlignment(JTextField.CENTER);
+                
+                expiryDatePanel.add(monthTField);
+                expiryDatePanel.add(slashLabel);
+                expiryDatePanel.add(yearTField);
+
+                gbc.gridx = 1;
+                cardDetailsPanel.add(expiryDatePanel, gbc);
+            } else {
+                JTextField textField = new JTextField();
+                textField.setPreferredSize(textFieldDimension);
+                gbc.gridx = 1;
+                cardDetailsPanel.add(textField, gbc);
+            }
         }
 
         JLabel cardTypeLabel = new JLabel("Card Type:");
@@ -147,10 +169,8 @@ public class TransactionPage {
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(cardDetailsPanel);
 
-
         cashRB.addActionListener(e -> cardDetailsPanel.setVisible(false));
         cardRB.addActionListener(e -> cardDetailsPanel.setVisible(true));
-
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         buttonPanel.setBackground(Color.WHITE);
@@ -179,25 +199,19 @@ public class TransactionPage {
                     JOptionPane.showMessageDialog(frameTransactionPage, "Please select a payment method.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
-            
         });
+
         transactionPanel.add(Box.createVerticalStrut(30));
         transactionPanel.add(buttonPanel);
-
 
         JScrollPane scrollPane = new JScrollPane(transactionPanel);
         frameTransactionPage.add(scrollPane);
         frameTransactionPage.setVisible(true);
     }
 
-
-
     public static void main(String[] args) {
         TransactionPage transPage = new TransactionPage();
         transPage.createTransactionPage();
     }
-
 }
-
 
