@@ -250,6 +250,7 @@ public class TransactionPage {
         backTButton.setForeground(Color.WHITE);
         backTButton.setBackground(Color.BLACK);
         backTButton.setPreferredSize(new Dimension(100, 35));
+        backTButton.addActionListener(backButtonEvent);
         buttonPanel.add(backTButton);
 
         JButton confirmButton = new JButton("Confirm");
@@ -371,6 +372,15 @@ public class TransactionPage {
         frameTransactionPage.add(scrollPane);
         frameTransactionPage.setVisible(true);
     }
+
+    ActionListener backButtonEvent = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            frameTransactionPage.setVisible(false);
+            PaymentSummaryPage paymentSummarypage = new PaymentSummaryPage();
+            paymentSummarypage.showPaymentSummaryPage(emailUser, carCategoryChoose, carModelChoose,
+                    variantChoose, basePrice, colorChoose, motorPowerChoose);
+        }
+    };
 
 }
 
