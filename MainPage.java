@@ -7,7 +7,7 @@ import javax.swing.border.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class MainPage {
+public class OverviewPage {
 
     // Preview Car with Image Part
     private String carPictureLink = "src/Images/Preview_n_Model/Car1.png";
@@ -39,12 +39,21 @@ public class MainPage {
 
 
     // Constructor
-    public MainPage() {
+    public OverviewPage() {
         index = 0;
     }
 
 
     public void showMainPage() {
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String fonts[] = ge.getAvailableFontFamilyNames();
+
+        // Getting the font family names
+        for (String i : fonts) {
+            System.out.println(i + " ");
+        }
+
 
         // Title
         JPanel titlelPanel = new JPanel();
@@ -416,7 +425,7 @@ public class MainPage {
     // Main
     public static void main(String[] agrs) {
 
-        MainPage car = new MainPage();
+        OverviewPage car = new OverviewPage();
         car.showMainPage();
 
     }
