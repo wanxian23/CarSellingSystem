@@ -7,9 +7,7 @@ import java.io.IOException;
 
 public class LogInPage {
 
-    private String nameUser;
     private String emailUser;
-    private String phoneUser;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -63,6 +61,7 @@ public class LogInPage {
         emailField.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         emailField.setPreferredSize(new Dimension(200, 30));
         emailField.addKeyListener(loginEvent2);
+        emailField.requestFocusInWindow();
         gbc.gridx = 1;
         gbc.gridy = 1;
         centerPanel.add(emailField, gbc);
@@ -147,8 +146,6 @@ public class LogInPage {
         frameLoginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLoginPage.pack();
         frameLoginPage.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frameLoginPage.setFocusable(true);
-        frameLoginPage.requestFocusInWindow();
         frameLoginPage.setVisible(true);
     }
 
@@ -197,9 +194,7 @@ public class LogInPage {
                         }
 
                         if (email) {
-                            nameUser = line[i + 1];
                             emailUser = line[i + 2];
-                            phoneUser = line[i + 3];
                             break;
                         }
                     }
@@ -212,7 +207,7 @@ public class LogInPage {
                         frameLoginPage.setVisible(false);
 
                         Description descriptionPage = new Description();
-                        descriptionPage.showDescriptionPage(nameUser, emailUser, phoneUser);
+                        descriptionPage.showDescriptionPage(emailUser);
 
                     } else if (!email) {
                         JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
@@ -257,9 +252,7 @@ public class LogInPage {
                     }
 
                     if (email) {
-                        nameUser = line[i + 1];
                         emailUser = line[i + 2];
-                        phoneUser = line[i + 3];
                         break;
                     }
                 }
@@ -272,7 +265,7 @@ public class LogInPage {
                     frameLoginPage.setVisible(false);
 
                     Description descriptionPage = new Description();
-                    descriptionPage.showDescriptionPage(nameUser, emailUser, phoneUser);
+                    descriptionPage.showDescriptionPage(emailUser);
 
                 } else if (!email) {
                     JOptionPane.showMessageDialog(null, "Email " + emailField.getText() + " not found", "EMAIL NOT FOUND",
