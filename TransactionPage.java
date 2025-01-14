@@ -24,7 +24,7 @@ public class TransactionPage {
         JPanel radioBPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         radioBPanel.setBackground(Color.WHITE);
 
-        JRadioButton cashRB = new JRadioButton("CASH");
+        JRadioButton cashRB = new JRadioButton("CHEQUE");
         cashRB.setFont(new Font("Century Gothic", Font.BOLD, 24));
         cashRB.setBackground(Color.WHITE);
 
@@ -49,7 +49,7 @@ public class TransactionPage {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] deliveryLabels = {"Name:", "Street:", "City:", "State:", "Postal Code:"};
+        String[] deliveryLabels = {"Name:","Phone Number:", "Street:", "City:", "State:", "Postal Code:"};
         Dimension labelDimension = new Dimension(260, 30);
         Dimension textFieldDimension = new Dimension(300, 30);
 
@@ -62,7 +62,7 @@ public class TransactionPage {
             gbc.anchor = GridBagConstraints.WEST;
             deliveryDetailsPanel.add(label, gbc);
 
-            if (i == 3) {
+            if (i == 4) {
                 String[] states = {
                         "Select your state", "Johor", "Kedah", "Kelantan", "Kuala Lumpur",
                         "Labuan", "Malacca", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis",
@@ -117,7 +117,7 @@ public class TransactionPage {
                 yearTField.setPreferredSize(new Dimension(50, 30));
                 yearTField.setFont(new Font("Century Gothic", Font.PLAIN, 15));
                 yearTField.setHorizontalAlignment(JTextField.CENTER);
-                
+
                 expiryDatePanel.add(monthTField);
                 expiryDatePanel.add(slashLabel);
                 expiryDatePanel.add(yearTField);
