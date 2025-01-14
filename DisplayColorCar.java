@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 public class DisplayColorCar {
 
+    private String emailUser;
+
     String carCategoryChoose;
     String carModelChoose;
     String variantChoose;
@@ -35,8 +37,10 @@ public class DisplayColorCar {
             {"/Images/Color/NoColor.png", "/Images/Color/TerraVolt/PearlWhiteMulti-Coat.png", "/Images/Color/TerraVolt/DeepBlueMetallic.png", "/Images/Color/TerraVolt/StealthGrey.png", "/Images/Color/TerraVolt/SolidBlack.png", "/Images/Color/TerraVolt/UltraRed.png"}
     };
 
-    public void colorCarPage(String carCategoryChoose, String carModelChoose,
+    public void colorCarPage(String emailUser, String carCategoryChoose, String carModelChoose,
                              String variantChoose, double basePrice, int motorPowerChoose, String[] selectedVariantPrice, int selectedCarIndex) {
+
+        this.emailUser= emailUser;
 
         this.carCategoryChoose = carCategoryChoose;
         this.carModelChoose = carModelChoose;
@@ -126,7 +130,7 @@ public class DisplayColorCar {
             } else {
                 frame.setVisible(false);
                 PaymentSummaryPage paymentSumPage = new PaymentSummaryPage();
-                paymentSumPage.showPaymentSummaryPage(carCategoryChoose, carModelChoose,
+                paymentSumPage.showPaymentSummaryPage(emailUser, carCategoryChoose, carModelChoose,
                         variantChoose, basePrice, colorChoose, motorPowerChoose);
             }
         }
@@ -153,6 +157,6 @@ public class DisplayColorCar {
     private void showPreviousPage() {
         frame.dispose();
         Description descriptionPage = new Description();
-        descriptionPage.showDescriptionPage();
+        descriptionPage.showDescriptionPage(emailUser);
     }
 }
