@@ -4,6 +4,12 @@ import java.awt.event.*;
 
 public class Description {
 
+    private String carCategoryChoose;
+    private String carModelChoose;
+    private String variantChoose;
+    private double basePrice;
+    private int motorPowerChoose;
+
     private JFrame frame;
     private JPanel mainPanel;
     private JLabel titleLabel;
@@ -17,33 +23,49 @@ public class Description {
     private String[] carModels = {"Aurora", "Imperial", "PowerHaul", "Stratos", "TerraVolt"};
 
     private String[][] variants = {
-            {"Standard Range Plus (RWD)", "Long Range AWD"},
-            {"Standard Range", "Long Range AWD", "Plaid"},
-            {"Single Motor RWD", "Dual Motor AWD", "Tri Motor AWD"},
-            {"Standard Range"},
-            {"Long Range AWD", "Plaid"}
+            {"  -- Select a Variant --", "Standard Range Plus (RWD)", "Long Range AWD"},
+            {"  -- Select a Variant --", "Standard Range", "Long Range AWD", "Plaid"},
+            {"  -- Select a Variant --", "Single Motor RWD", "Dual Motor AWD", "Tri Motor AWD"},
+            {"  -- Select a Variant --", "Standard Range"},
+            {"  -- Select a Variant --", "Long Range AWD", "Plaid"}
     };
 
     private String[][] variantDescriptions = {
-            {"Standard Range Plus (RWD): Most affordable, with a range of ~350 km.", "Long Range AWD: Better range (~530 km) and performance."},
-            {"Standard Range: The basic luxury sedan model.", "Long Range AWD: Offers a significantly longer range (~650 km).", "Plaid: High performance variant, with a 0-100 km/h in under 2 seconds."},
-            {"Single Motor RWD: Entry-level, expected to have a range of about 400 km.", "Dual Motor AWD: Mid-range, with a range of about 547 km.", "Tri Motor AWD: Top-tier performance with up to 845 hp."},
-            {"Standard Range: Reach 0-100 km/h in under 2 seconds, making it one of the fastest production cars, a range of over 1,000 km on a single charge."},
-            {"Long Range AWD: Offers great performance and range (~560 km).", "Plaid: High-performance version, accelerating from 0-100 km/h in about 2.5 seconds."}
+            {"", "Standard Range Plus (RWD): Most affordable, with a range of ~350 km.", "Long Range AWD: Better range (~530 km) and performance."},
+            {"", "Standard Range: The basic luxury sedan model.", "Long Range AWD: Offers a significantly longer range (~650 km).", "Plaid: High performance variant, with a 0-100 km/h in under 2 seconds."},
+            {"", "Single Motor RWD: Entry-level, expected to have a range of about 400 km.", "Dual Motor AWD: Mid-range, with a range of about 547 km.", "Tri Motor AWD: Top-tier performance with up to 845 hp."},
+            {"", "Standard Range: Reach 0-100 km/h in under 2 seconds, making it one of the fastest production cars, a range of over 1,000 km on a single charge."},
+            {"", "Long Range AWD: Offers great performance and range (~560 km).", "Plaid: High-performance version, accelerating from 0-100 km/h in about 2.5 seconds."}
     };
 
     private String[][] variantPrices = {
-            {"RM 189,000", "RM 218,000"},
-            {"RM 539,000", "RM 589,000", "RM 1,017,000"},
-            {"RM 285,000", "RM 380,000", "RM 475,000"},
-            {"RM 1,000,000"},
-            {"RM 408,000", "RM 577,000"}
+            {"", "189,000", "218,000"},
+            {"", "539,000", "589,000", "1,017,000"},
+            {"", "285,000", "380,000", "475,000"},
+            {"", "1,000,000"},
+            {"", "408,000", "577,000"}
+    };
+
+    private int[][] motorPower = {
+            {0, 190, 258},
+            {0, 190, 258, 340},
+            {0, 210, 360, 560},
+            {0, 760},
+            {0, 500, 760}
+    };
+
+    private double[][] variantPricesDouble = {
+            {0, 189000, 218000},
+            {0, 539000, 589000, 1017000},
+            {0, 285000, 380000, 475000},
+            {0, 1000000},
+            {0, 408000, 577000}
     };
 
     private int[] selectedVariantIndex = new int[5];
     private int selectedCarIndex = -1;
 
-    public Description() {
+    public void showDescriptionPage() {
         frame = new JFrame("EcoMotion Details");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,6 +79,7 @@ public class Description {
         titleLabel = new JLabel("Description for EcoMotion", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         JPanel titlePanel = new JPanel();
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         titlePanel.add(titleLabel);
         mainPanel.add(titlePanel);
         mainPanel.add(Box.createVerticalStrut(5));
@@ -136,11 +159,15 @@ public class Description {
 
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.PLAIN, 35));
+        backButton.setForeground(Color.WHITE);
+        backButton.setBackground(Color.black);
         backButton.addActionListener(e -> showBackPage());
         buttonPanel.add(backButton, BorderLayout.WEST);
 
         JButton nextButton = new JButton("Next");
         nextButton.setFont(new Font("Arial", Font.PLAIN, 35));
+        nextButton.setForeground(Color.WHITE);
+        nextButton.setBackground(Color.black);
         nextButton.addActionListener(e -> showNextPage());
         buttonPanel.add(nextButton, BorderLayout.EAST);
 
@@ -151,15 +178,23 @@ public class Description {
     }
 
     private void updateDescriptionAndPrice(int carIndex, int variantIndex) {
-        if (variantIndex < 0) {
+
+        if (variantIndex < 1) {
             descriptionLabel.setText("<html><p style='padding:10px;'>Select a variant to see details here.</p></html>");
             priceLabel.setText("Price: RM 0");
             priceLabel.setFont(new Font("Arial", Font.BOLD, 40));
         } else {
             String description = variantDescriptions[carIndex][variantIndex];
             String price = variantPrices[carIndex][variantIndex];
+
+            carCategoryChoose = carCategories[carIndex];
+            carModelChoose = carModels[carIndex];
+            variantChoose = variants[carIndex][variantIndex];
+            basePrice = variantPricesDouble[carIndex][variantIndex];
+            motorPowerChoose = motorPower[carIndex][variantIndex];
+
             descriptionLabel.setText("<html><p style='padding:10px;'>" + description + "</p></html>");
-            priceLabel.setText("Price: " + price);
+            priceLabel.setText("Price: RM " + price);
         }
     }
 
@@ -174,18 +209,21 @@ public class Description {
         }
 
         String[] selectedVariantPrice = new String[5];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < selectedVariantPrice.length; i++) {
             int selectedIndex = selectedVariantIndex[i];
             if (selectedIndex != -1) {
                 selectedVariantPrice[i] = variantPrices[i][selectedIndex];
             }
         }
 
-        new DisplayColorCar(selectedVariantPrice, selectedCarIndex);
+       DisplayColorCar colorCar = new DisplayColorCar();
+        colorCar.colorCarPage(carCategoryChoose, carModelChoose, variantChoose, basePrice, motorPowerChoose, selectedVariantPrice, selectedCarIndex);
+
         frame.dispose();
     }
 
     public static void main(String[] args) {
-        new Description();
+        Description descriptionPage = new Description();
+        descriptionPage.showDescriptionPage();
     }
 }
