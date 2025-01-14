@@ -52,7 +52,7 @@ public class TransactionPage {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] deliveryLabels = {"Name:", "Contact Number:", "Street:", "City:", "State/Province:", "Postal Code:", "Country:"};
+        String[] deliveryLabels = {"Name:", "Contact Number:", "Street:", "City:", "State/Province:", "Postal Code:"};
         Dimension labelDimension = new Dimension(260, 30);
         Dimension textFieldDimension = new Dimension(300, 30);
 
