@@ -114,6 +114,7 @@ public class SignUp {
 
         // Set focus for each textField (If user press Enter Key)
         nameField.addKeyListener(signupEvent2);
+        nameField.requestFocusInWindow();
         emailLabel.addKeyListener(signupEvent2);
         phoneField.addKeyListener(signupEvent2);
         passwordField.addKeyListener(signupEvent2);
