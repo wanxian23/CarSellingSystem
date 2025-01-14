@@ -115,7 +115,7 @@ public class LogInPage {
         loginButton.setForeground(Color.WHITE);
         loginButton.setBackground(Color.BLACK);
         loginButton.setPreferredSize(new Dimension(100, 35));
-        loginButton.addKeyListener(loginEvent2);
+        loginButton.addActionListener(loginEvent);
         buttonPanel.add(loginButton);
 
         // adding button panel to center panel
