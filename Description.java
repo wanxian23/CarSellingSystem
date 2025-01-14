@@ -4,6 +4,8 @@ import java.awt.event.*;
 
 public class Description {
 
+    private String emailUser;
+
     private String carCategoryChoose;
     private String carModelChoose;
     private String variantChoose;
@@ -65,7 +67,10 @@ public class Description {
     private int[] selectedVariantIndex = new int[5];
     private int selectedCarIndex = -1;
 
-    public void showDescriptionPage() {
+    public void showDescriptionPage(String emailUser) {
+
+        this.emailUser= emailUser;
+
         frame = new JFrame("EcoMotion Details");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -219,13 +224,13 @@ public class Description {
         }
 
        DisplayColorCar colorCar = new DisplayColorCar();
-        colorCar.colorCarPage(carCategoryChoose, carModelChoose, variantChoose, basePrice, motorPowerChoose, selectedVariantPrice, selectedCarIndex);
+        colorCar.colorCarPage(emailUser, carCategoryChoose, carModelChoose, variantChoose, basePrice, motorPowerChoose, selectedVariantPrice, selectedCarIndex);
 
         frame.dispose();
     }
 
     public static void main(String[] args) {
         Description descriptionPage = new Description();
-        descriptionPage.showDescriptionPage();
+        //descriptionPage.showDescriptionPage();
     }
 }
