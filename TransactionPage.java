@@ -262,20 +262,24 @@ public class TransactionPage {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                for (int x = 0; x < deliveryLabels.length - 1; x++) {
+                for (int x = 0; x < deliveryLabels.length - 2; x++) {
                     if (textField1[x].getText().isEmpty() && x != 1) {
                         JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
 
-                if (textField1[1].getText().isEmpty()) {
+                if (textField1[1].getText().isEmpty() || textField1[4].getText().isEmpty()) {
                     JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 } else {
                     if (textField1[1].getText().length() != 10 &&  textField1[1].getText().length() != 11) {
                         JOptionPane.showMessageDialog(null, "Phone Number " + textField1[1].getText() + " was not between the length of 10 or 11",
                                 "ERROR! PHONE NUMBER OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    } else if (textField1[4].getText().length() != 5) {
+                        JOptionPane.showMessageDialog(null, "Postal Code " + textField1[4].getText() + " was not 5 digits",
+                                "ERROR! POSTAL CODE OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 }
@@ -290,10 +294,10 @@ public class TransactionPage {
                     nameUser = textField1[0].getText();
                     phoneUser = textField1[1].getText();
                     addressFirstHalfUser = textField1[2].getText() + "  ";
-                    for (int x = 3; x < deliveryLabels.length - 1; x++) {
+                    for (int x = 3; x < deliveryLabels.length - 2; x++) {
                         addressFirstHalfUser += textField1[x].getText() + "  ";
                     }
-                    addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
+                    addressSecondHalfUser = textField1[4].getText() + "  " + stateComboBox.getSelectedItem() + "  Malaysia.";
                     paymentMethod = chequeRB.getText();
 
                     JOptionPane.showMessageDialog(frameTransactionPage, "Cheque payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -343,10 +347,10 @@ public class TransactionPage {
                     nameUser = textField1[0].getText();
                     phoneUser = textField1[1].getText();
                     addressFirstHalfUser = textField1[2].getText() + "  ";
-                    for (int x = 3; x < deliveryLabels.length - 1; x++) {
+                    for (int x = 3; x < deliveryLabels.length - 2; x++) {
                         addressFirstHalfUser += textField1[x].getText() + "  ";
                     }
-                    addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
+                    addressSecondHalfUser = textField1[4].getText() + "  " + stateComboBox.getSelectedItem() + "  Malaysia.";
                     paymentMethod = cardRB.getText();
 
                     JOptionPane.showMessageDialog(frameTransactionPage, "Card payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -382,6 +386,5 @@ public class TransactionPage {
     };
 
 }
-
 
 
