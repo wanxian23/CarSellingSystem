@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -288,21 +287,21 @@ public class TransactionPage {
 
                 if (chequeRB.isSelected()) {
 
-                        nameUser = textField1[0].getText();
-                        phoneUser = textField1[1].getText();
-                        addressFirstHalfUser = textField1[2].getText() + "  ";
-                        for (int x = 3; x < deliveryLabels.length - 1; x++) {
-                            addressFirstHalfUser += textField1[x].getText() + "  ";
-                        }
-                        addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
-                        paymentMethod = chequeRB.getText();
+                    nameUser = textField1[0].getText();
+                    phoneUser = textField1[1].getText();
+                    addressFirstHalfUser = textField1[2].getText() + "  ";
+                    for (int x = 3; x < deliveryLabels.length - 1; x++) {
+                        addressFirstHalfUser += textField1[x].getText() + "  ";
+                    }
+                    addressSecondHalfUser = stateComboBox.getSelectedItem() + "  Malaysia.";
+                    paymentMethod = chequeRB.getText();
 
-                        JOptionPane.showMessageDialog(frameTransactionPage, "Cash payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                        frameTransactionPage.setVisible(false);
+                    JOptionPane.showMessageDialog(frameTransactionPage, "Cheque payment selected! Proceeding with transaction.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    frameTransactionPage.setVisible(false);
 
-                        ReceiptPage receiptPage = new ReceiptPage();
-                        receiptPage.showReceiptPage(nameUser, emailUser, phoneUser, addressFirstHalfUser, addressSecondHalfUser, paymentMethod, carCategoryChoose, carModelChoose,
-                                variantChoose, basePrice, colorChoose, motorPowerChoose, downPayment, roadTax, monthlyInstalmentEMI, totalAmount);
+                    ReceiptPage receiptPage = new ReceiptPage();
+                    receiptPage.showReceiptPage(nameUser, emailUser, phoneUser, addressFirstHalfUser, addressSecondHalfUser, paymentMethod, carCategoryChoose, carModelChoose,
+                            variantChoose, basePrice, colorChoose, motorPowerChoose, downPayment, roadTax, monthlyInstalmentEMI, totalAmount);
 
                 } else if (cardRB.isSelected()) {
 
@@ -383,5 +382,6 @@ public class TransactionPage {
     };
 
 }
+
 
 
