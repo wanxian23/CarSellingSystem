@@ -312,11 +312,6 @@ public class TransactionPage {
                     return;
                 }
 
-                if (!termsCB.isSelected()) {
-                    JOptionPane.showMessageDialog(frameTransactionPage, "Term policy must be selected!", "Error! Term Policy Must be Selected!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
                 if (chequeRB.isSelected()) {
 
                     nameUser = textField1[0].getText();
@@ -400,6 +395,11 @@ public class TransactionPage {
 
                     if (!visaRB.isSelected() && !masterCardRB.isSelected()) {
                         JOptionPane.showMessageDialog(frameTransactionPage, "Must Choose Visa or Master Either One Card Type!", "Error! No Card Type is Choose!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!termsCB.isSelected()) {
+                        JOptionPane.showMessageDialog(frameTransactionPage, "Term policy must be selected!", "Error! Term Policy Must be Selected!", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
