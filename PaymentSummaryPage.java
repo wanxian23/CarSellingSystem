@@ -117,7 +117,7 @@ public class PaymentSummaryPage {
                                             "<br><b>&ensp;&ensp;&ensp;- Model: </b>" + carModelChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Variant: </b>" + variantChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Colour: </b>" + colorChoose +
-                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: </b>" + String.valueOf(String.format("%.2f", basePrice)) + "</html>");
+                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: RM </b>" + String.valueOf(String.format("%.2f", basePrice)) + "</html>");
         carDetailsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         carDetailsLabel.setBorder(new MatteBorder(1, 0, 1, 0, Color.GRAY));
         carDetailsLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -254,6 +254,7 @@ public class PaymentSummaryPage {
 
     }
 
+    // Back button listener
     ActionListener backButtonEvent = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             framePaymentSummary.setVisible(false);
@@ -262,6 +263,7 @@ public class PaymentSummaryPage {
         }
     };
 
+    // Confirm button listener
     ActionListener confirmButtonEvent = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             framePaymentSummary.setVisible(false);
