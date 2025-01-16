@@ -189,7 +189,6 @@ public class SignUp {
     };
 
     KeyListener signupEvent2 = new KeyAdapter() {
-        @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
@@ -203,7 +202,18 @@ public class SignUp {
                         JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " was not between the length of 10 or 11",
                                 "ERROR! PHONE NUMBER OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
                         return;
+                    } else {
+                        String phoneFieldInput = phoneField.getText();
+
+                        try {
+                            int testInt = Integer.parseInt(phoneFieldInput);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " Must be all numbers!",
+                                    "ERROR! PHONE NUMBER CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
                     }
+
                     phone = true;
                 }
                 if (passwordField.getPassword().length > 0 && rePasswordField.getPassword().length > 0) {
@@ -315,6 +325,16 @@ public class SignUp {
                     JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " was not between the length of 10 or 11",
                             "ERROR! PHONE NUMBER OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
                     return;
+                } else {
+                    String phoneFieldInput = phoneField.getText();
+
+                    try {
+                        int testInt = Integer.parseInt(phoneFieldInput);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Phone Number " + phoneField.getText() + " Must be all numbers!",
+                                "ERROR! PHONE NUMBER CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 }
                 phone = true;
             }
