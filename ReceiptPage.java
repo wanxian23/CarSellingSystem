@@ -132,7 +132,7 @@ public class ReceiptPage {
         carCategory.setFont(new Font("Arial", Font.PLAIN, 20));
         JLabel carModel = new JLabel("<html><b>Model:</b> <br>" + carModelChoose + "</html>");
         carModel.setFont(new Font("Arial", Font.PLAIN, 20));
-        JLabel engineCapacity = new JLabel("<html><b>Motor Power:</b> <br>" + motorPowerChoose + "</html>");
+        JLabel engineCapacity = new JLabel("<html><b>Motor Power:</b> <br>" + motorPowerChoose + " kW</html>");
         engineCapacity.setFont(new Font("Arial", Font.PLAIN, 20));
         vehicleInfoLeftPanel.add(carBrandName);
         vehicleInfoLeftPanel.add(carCategory);
