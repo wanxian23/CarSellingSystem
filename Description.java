@@ -210,7 +210,7 @@ public class Description {
     }
 
     private void showNextPage() {
-        if (selectedCarIndex == -1 || selectedVariantIndex[selectedCarIndex] == -1) {
+        if (selectedCarIndex == -1 || selectedVariantIndex[selectedCarIndex] == 0) {
             JOptionPane.showMessageDialog(frame, "Please select a variant.");
             return;
         }
@@ -229,8 +229,4 @@ public class Description {
         frame.dispose();
     }
 
-    public static void main(String[] args) {
-        Description descriptionPage = new Description();
-        //descriptionPage.showDescriptionPage();
-    }
 }
