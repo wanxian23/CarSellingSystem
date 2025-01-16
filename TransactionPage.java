@@ -187,6 +187,7 @@ public class TransactionPage {
                 gbc.gridx = 1;
                 gbc.gridy = 1 + i;
                 cardDetailsPanel.add(textField2[i], gbc);
+
             } else if ( i < cardLabels.length - 2) {
                 textField2[i] = new JTextField();
                 textField2[i].setPreferredSize(textFieldDimension);
@@ -262,6 +263,7 @@ public class TransactionPage {
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                // User one (If textfield empty, show this)
                 for (int x = 0; x < deliveryLabels.length - 2; x++) {
                     if (textField1[x].getText().isEmpty() && x != 1) {
                         JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
@@ -269,6 +271,7 @@ public class TransactionPage {
                     }
                 }
 
+                // Textfield for phone and postal code
                 if (textField1[1].getText().isEmpty() || textField1[4].getText().isEmpty()) {
                     JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -281,11 +284,36 @@ public class TransactionPage {
                         JOptionPane.showMessageDialog(null, "Postal Code " + textField1[4].getText() + " was not 5 digits",
                                 "ERROR! POSTAL CODE OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
                         return;
+                    } else {
+                        String phoneInput = textField1[1].getText();
+
+                        try {
+                            int testInt = Integer.parseInt(phoneInput);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Phone Number " + textField1[1].getText() + " Must be all numbers!",
+                                    "ERROR! PHONE NUMBER CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+
+                        String postalCodeInput = textField1[4].getText();
+
+                        try {
+                            int testInt = Integer.parseInt(postalCodeInput);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Postal Code " + textField1[4].getText() + " Must be all numbers!",
+                                    "ERROR! POSTAL CODE CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
                     }
                 }
 
                 if (stateComboBox.getSelectedIndex() == 0) {
                     JOptionPane.showMessageDialog(frameTransactionPage, "State must be selected either one!", "Error! No Empty State Allowed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!termsCB.isSelected()) {
+                    JOptionPane.showMessageDialog(frameTransactionPage, "Term policy must be selected!", "Error! Term Policy Must be Selected!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -319,16 +347,34 @@ public class TransactionPage {
                     if (textField2[1].getText().isEmpty() || textField2[2].getText().isEmpty()) {
                         JOptionPane.showMessageDialog(frameTransactionPage, "All the textfield cannot empty!", "Error! No Empty Textfield Allowed!", JOptionPane.ERROR_MESSAGE);
                         return;
-                    } else if (textField2[1].getText().length() != 16) {
+                    } else  {
                         if (textField2[1].getText().length() != 16) {
                             JOptionPane.showMessageDialog(null, "Card Number " + textField2[1].getText() + " was not 16 digits",
                                     "ERROR! CARD NUMBER WAS OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
                             return;
+                        } else if (textField2[2].getText().length() != 3) {
+                            JOptionPane.showMessageDialog(null, "CVV Number " + textField2[2].getText() + " was not 3 digits",
+                                    "ERROR! CVV NUMBER WAS OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }else if (!textField2[1].getText().matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "Card Number " + textField2[1].getText() + " Must be all numbers!",
+                                    "ERROR! CARD NUMBER CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        } else {
+
+                            String cvvInput = textField2[2].getText();
+
+                            try {
+
+                                int testInt = Integer.parseInt(cvvInput);
+
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(null, "CVV Number " + textField2[2].getText() + " Must be all numbers!",
+                                        "ERROR! CVV CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                                return;
+                            }
+
                         }
-                    } else if (textField2[2].getText().length() != 3) {
-                        JOptionPane.showMessageDialog(null, "CVV Number " + textField2[2].getText() + " was not 3 digits",
-                                "ERROR! CVV NUMBER WAS OUT OF RANGE", JOptionPane.WARNING_MESSAGE);
-                        return;
                     }
 
                     if (monthTField.getText().isEmpty() || yearTField.getText().isEmpty()) {
@@ -337,6 +383,19 @@ public class TransactionPage {
                     } else if (monthTField.getText().length() != 2 || yearTField.getText().length() != 2) {
                         JOptionPane.showMessageDialog(frameTransactionPage, "Length of Year and Month for card must be 2 digits!", "Error! Year & Month OUT OF RANGE!", JOptionPane.ERROR_MESSAGE);
                         return;
+                    } else {
+
+                        String monthInput = monthTField.getText();
+                        String yearInput = yearTField.getText();
+
+                        try {
+                            int testInt = Integer.parseInt(monthInput);
+                            int testInt2 = Integer.parseInt(yearInput);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Month and Year must be all numbers!",
+                                    "ERROR! MONTH & YEAR CONTAIN NON-NUMBER CHARACTER!", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
                     }
 
                     if (!visaRB.isSelected() && !masterCardRB.isSelected()) {
