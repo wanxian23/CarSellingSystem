@@ -92,6 +92,7 @@ public class ReceiptPage {
         clientDetialsLeftPanel.add(clientEmail);
 
         JPanel clientDetailsRightPanel = new JPanel();
+        clientDetailsRightPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         clientDetailsRightPanel.setLayout(new GridLayout(3, 1, 10, 20));
         LocalDate currentDate = LocalDate.now();
         JLabel addressUserLabel = new JLabel("<html><b>Address:</b> <br>" + addressFirstHalfUser + "<br>" + addressSecondHalfUser + "</html>");
@@ -349,7 +350,7 @@ public class ReceiptPage {
             signaturePanel.add(emptyLabel3[x]);
         }
         JLabel sellerSignature = new JLabel("<html>&emsp;&emsp;__________________&emsp;&emsp;<br>" +
-                                                 "&emsp;&emsp;&emsp;Seller Signature>&emsp;&emsp;</html>");
+                                                 "&emsp;&emsp;&emsp;Seller Signature&emsp;&emsp;</html>");
         sellerSignature.setFont(new Font("Arial", Font.PLAIN, 20));
         sellerSignature.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel buyerSignature = new JLabel("<html>&emsp;&emsp;__________________&emsp;&emsp;<br>" +
