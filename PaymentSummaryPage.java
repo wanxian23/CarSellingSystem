@@ -117,7 +117,7 @@ public class PaymentSummaryPage {
                                             "<br><b>&ensp;&ensp;&ensp;- Model: </b>" + carModelChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Variant: </b>" + variantChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Colour: </b>" + colorChoose +
-                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: RM </b>" + String.valueOf(String.format("%.2f", basePrice)) + "</html>");
+                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: </b>RM " + String.valueOf(String.format("%.2f", basePrice)) + "</html>");
         carDetailsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         carDetailsLabel.setBorder(new MatteBorder(1, 0, 1, 0, Color.GRAY));
         carDetailsLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -142,7 +142,7 @@ public class PaymentSummaryPage {
         no2Label.setPreferredSize(new Dimension(100, 200));
         no2Label.setVerticalAlignment(SwingConstants.TOP);
         JLabel roadTaxDetailsLabel = new JLabel("<html><br><b>&ensp;&ensp;Road Tax</b><br>" +
-                "<br><b>&ensp;&ensp;&ensp;- Motor Power: </b>" + String.valueOf(motorPowerChoose) +
+                "<br><b>&ensp;&ensp;&ensp;- Motor Power: </b>" + String.valueOf(motorPowerChoose) + " kW" +
                 "<br><b>&ensp;&ensp;&ensp;- Region:</b> Penisular Malaysia" +
                 "<br><b>&ensp;&ensp;&ensp;- Fuel Type:</b> EV" + "</html>");
         roadTaxDetailsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
