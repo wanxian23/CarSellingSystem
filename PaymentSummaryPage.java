@@ -162,7 +162,7 @@ public class PaymentSummaryPage {
         JPanel loanDetailsPanel = new JPanel();
         loanDetailsPanel.setLayout(new BorderLayout());
         loanDetailsPanel.setPreferredSize(new Dimension((int) width, 180));
-        JLabel no3Label = new JLabel("<html><br><b>&ensp;&ensp;2</b></html>");
+        JLabel no3Label = new JLabel("<html><br><b>&ensp;&ensp;3</b></html>");
         no3Label.setFont(new Font("Arial", Font.PLAIN, 20));
         no3Label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         no3Label.setPreferredSize(new Dimension(100, 200));
