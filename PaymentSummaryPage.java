@@ -3,6 +3,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 public class PaymentSummaryPage {
 
@@ -79,6 +80,8 @@ public class PaymentSummaryPage {
 
 
         // Calculation of car detail
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+
         downPayment = basePrice * 0.1;
         double loanAmount = basePrice - downPayment;
         double annualInterestRate = 3.4;
@@ -112,17 +115,18 @@ public class PaymentSummaryPage {
         no1Label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         no1Label.setPreferredSize(new Dimension(100, 200));
         no1Label.setVerticalAlignment(SwingConstants.TOP);
+
         JLabel carDetailsLabel = new JLabel("<html><br><b>&ensp;&ensp;EcoMotion</b><br>" +
                                             "<br><b>&ensp;&ensp;&ensp;- Category: </b>" + carCategoryChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Model: </b>" + carModelChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Variant: </b>" + variantChoose +
                                             "<br><b>&ensp;&ensp;&ensp;- Colour: </b>" + colorChoose +
-                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: </b>RM " + String.valueOf(String.format("%.2f", basePrice)) + "</html>");
+                                            "<br><b>&ensp;&ensp;&ensp;- Base Price: </b>RM " + String.valueOf(df.format(basePrice)) + "</html>");
         carDetailsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         carDetailsLabel.setBorder(new MatteBorder(1, 0, 1, 0, Color.GRAY));
         carDetailsLabel.setVerticalAlignment(SwingConstants.TOP);
         JLabel downPaymentLabel = new JLabel("<html><br>&ensp;&ensp;<b>Down Payment (10%)<br></b>                                       " +
-                                            "<br>&ensp;&ensp;&ensp;- RM " + String.valueOf(String.format("%.2f", downPayment)));
+                                            "<br>&ensp;&ensp;&ensp;- RM " + String.valueOf(df.format(downPayment)));
         downPaymentLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         downPaymentLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         downPaymentLabel.setPreferredSize(new Dimension(300, 200));
@@ -170,12 +174,12 @@ public class PaymentSummaryPage {
         JLabel loanDetailsLabel = new JLabel("<html><br><b>&ensp;&ensp;Loan Details</b><br>" +
                 "<br><b>&ensp;&ensp;&ensp;- Interest Rate:</b> 3.4% p.a." + String.valueOf(motorPowerChoose) +
                 "<br><b>&ensp;&ensp;&ensp;- Loan Tenure:</b> 7 Years" +
-                "<br><b>&ensp;&ensp;&ensp;- Loan Amount (90% From Base Price):</b> RM " + String.valueOf(String.format("%.2f", loanAmount)) + "</html>");
+                "<br><b>&ensp;&ensp;&ensp;- Loan Amount (90% From Base Price):</b> RM " + String.valueOf(df.format(loanAmount)) + "</html>");
         loanDetailsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         loanDetailsLabel.setBorder(new MatteBorder(1, 0, 1, 0, Color.GRAY));
         loanDetailsLabel.setVerticalAlignment(SwingConstants.TOP);
-        JLabel monthlyInstalmentLabel = new JLabel("<html><br>&ensp;&ensp;<b>Monthly Instalment<br></b>                                       " +
-                "<br>&ensp;&ensp;&ensp;- RM " + String.valueOf(String.format("%.2f", monthlyInstalmentEMI)));
+        JLabel monthlyInstalmentLabel = new JLabel("<html><br>&ensp;&ensp;<b>Monthly Instalment<br></b>" +
+                "<br>&ensp;&ensp;&ensp;- RM " + String.valueOf(df.format(monthlyInstalmentEMI)));
         monthlyInstalmentLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         monthlyInstalmentLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         monthlyInstalmentLabel.setPreferredSize(new Dimension(300, 200));
@@ -196,7 +200,7 @@ public class PaymentSummaryPage {
         totalNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalNameLabel.setBorder(new MatteBorder(1, 0, 1, 0, Color.GRAY));
         totalNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JLabel totalPriceLabel = new JLabel("    RM " + String.valueOf(String.format("%.2f", totalAmount)));
+        JLabel totalPriceLabel = new JLabel("    RM " + String.valueOf(df.format(totalAmount)));
         totalPriceLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalPriceLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         totalPriceLabel.setPreferredSize(new Dimension(300, 200));
