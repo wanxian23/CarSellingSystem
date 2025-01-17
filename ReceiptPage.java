@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Random;
+import java.text.DecimalFormat;
 
 public class ReceiptPage {
 
@@ -36,6 +37,7 @@ public class ReceiptPage {
         double width = screenSize.width / 1.5;
 
         Random random = new Random();
+        DecimalFormat df = new DecimalFormat("#,##0.00");
 
 
         // Title
@@ -194,7 +196,7 @@ public class ReceiptPage {
 
         JPanel paymentBreakdownCenterPanel = new JPanel();
         paymentBreakdownCenterPanel.setLayout(new GridLayout(5, 1));
-        JLabel basePriceLabel = new JLabel("RM " + String.valueOf(String.format("%.2f", basePrice)));
+        JLabel basePriceLabel = new JLabel("RM " + String.valueOf(df.format(basePrice)));
         basePriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         basePriceLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         basePriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -215,7 +217,7 @@ public class ReceiptPage {
         paymentBreakdownRightPanel.setLayout(new GridLayout(5, 1));
         emptyLabel[3] = new JLabel(" ");
         emptyLabel[3].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        JLabel downPaymentLabel = new JLabel(" RM " + String.valueOf(String.format("%.2f", downPayment)));
+        JLabel downPaymentLabel = new JLabel(" RM " + String.valueOf(df.format(downPayment)));
         downPaymentLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         downPaymentLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         downPaymentLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -223,11 +225,11 @@ public class ReceiptPage {
         roadTaxLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         roadTaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         roadTaxLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JLabel loanLabel = new JLabel(" RM " + String.valueOf(String.format("%.2f", monthlyInstalmentEMI)));
+        JLabel loanLabel = new JLabel(" RM " +String.valueOf(df.format(monthlyInstalmentEMI)));
         loanLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         loanLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         loanLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JLabel totalLabel = new JLabel(" RM " + String.valueOf(String.format("%.2f", totalAmount)));
+        JLabel totalLabel = new JLabel(" RM " + String.valueOf(df.format(totalAmount)));
         totalLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         totalLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -288,11 +290,11 @@ public class ReceiptPage {
         paymentMethodLabel.setHorizontalAlignment(SwingConstants.CENTER);
         paymentMethodLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         paymentMethodLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        JLabel totalPaymentLabel = new JLabel("RM " + String.valueOf(String.format("%.2f", totalAmount)));
+        JLabel totalPaymentLabel = new JLabel("RM " + String.valueOf(df.format(totalAmount)));
         totalPaymentLabel.setHorizontalAlignment(SwingConstants.CENTER);
         totalPaymentLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         totalPaymentLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        JLabel amountPaidLabel = new JLabel("RM " + String.valueOf(String.format("%.2f", totalPaidAmount)));
+        JLabel amountPaidLabel = new JLabel("RM " + String.valueOf(df.format(totalPaidAmount)));
         amountPaidLabel.setHorizontalAlignment(SwingConstants.CENTER);
         amountPaidLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         amountPaidLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -311,7 +313,7 @@ public class ReceiptPage {
             emptyLabel2[x].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             paymentDetailsRightPanel.add(emptyLabel2[x]);
         }
-        JLabel balanceLabel = new JLabel("RM " + String.valueOf(String.format("%.2f", balance)));
+        JLabel balanceLabel = new JLabel("RM " + String.valueOf(df.format(balance)));
         balanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         balanceLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         balanceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
