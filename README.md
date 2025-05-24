@@ -10,7 +10,7 @@ A desktop-based Car Selling System built using Java (Java Swing).
 ## How to Run
 
 1. Clone the repository:
-git clone [https://github.com/wanxian23/CarSellingSystem.git](https://github.com/wanxian23/CarSellingSystem.git)
+`git clone https://github.com/wanxian23/CarSellingSystem.git`
 
 markdown
 Copy
